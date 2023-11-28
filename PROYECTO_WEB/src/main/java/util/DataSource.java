@@ -11,9 +11,9 @@ import java.sql.SQLException;
 public class DataSource {
     // Parámetros de conexión a la base de datos
 
-    private static final String URL = "jdbc:mysql://localhost:3306/tramite_documentario";
-    private static final String USUARIO = "Admin";
-    private static final String CONTRASEÑA = "Web";
+    private static final String URL = "jdbc:mysql://localhost:3307/prueba";
+    private static final String USUARIO = "root";
+    private static final String CONTRASEÑA = "";
 
     public static Connection obtenerConexion() {
         Connection conexion = null;
