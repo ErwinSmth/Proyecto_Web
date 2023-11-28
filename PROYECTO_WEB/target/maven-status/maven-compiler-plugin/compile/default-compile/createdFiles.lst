@@ -1,5 +1,4 @@
 dao\IOpcionesDAO.class
-model\OpcionesService.class
 com\mycompany\proyecto_web\JAXRSConfiguration.class
 controller\OpcionBean.class
 model\Opciones.class

@@ -4,7 +4,6 @@
  */
 package dao;
 
-
 import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,83 +11,86 @@ import model.Opciones;
 import util.DataSource;
 import static util.DataSource.obtenerConexion;
 
-public class OpcionesDaoImpl implements IOpcionesDAO {
+public class OpcionesDaoImpl implements IDAO<Opciones> {
 
     Connection conn = DataSource.obtenerConexion();
 
     @Override
-    public String agregarOpciones(Opciones op) {
-
+    public int add(Opciones op) {
         PreparedStatement pst = null;
-        String mensaje = "";
-        String sql = "INSERT INTO opciones (documento, estado, descripcion, grupo) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO opcion (pagina, estado, descripcion, grupo) VALUES (?, ?, ?, ?)";
         try {
             pst = conn.prepareStatement(sql);
-          
+
             pst.setString(1, op.getDocumento());
             pst.setString(2, op.getEstado());
             pst.setString(3, op.getDescripcion());
             pst.setString(4, op.getGrupo());
 
-            mensaje = "GUARDADO EXITOSAMENTE";
-            pst.executeUpdate();
+            int exito = pst.executeUpdate();
             pst.close();
-        } catch (Exception e) {
-            mensaje = "NO SE HA GUARDADO CORRECTAMENTE " + e.getMessage();
-        }
-        return mensaje;
 
+            if (exito > 0) {
+                return 1; // Éxito al insertar
+            } else {
+                return 2; // No se pudo insertar
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 2; // Error al intentar insertar
+        }
     }
 
     @Override
-    public String actualizarOpciones(Opciones op) {
-
+    public int update(Opciones op) {
         PreparedStatement pst = null;
-        String mensaje = "";
-        String sql = "UPDATE opciones documento=?, estado =?, descripcion=?,grupo=?"
-                + " WHERE id=?";
-
+        String sql = "UPDATE opcion SET pagina = ?, estado = ?, descripcion = ?, grupo = ? WHERE idOpcion = ?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, op.getDocumento());
             pst.setString(2, op.getEstado());
             pst.setString(3, op.getDescripcion());
             pst.setString(4, op.getGrupo());
+            pst.setInt(5, op.getId());
 
-            mensaje = "EDITADO EXITOSAMENTE";
-            pst.executeUpdate();
+            int exito = pst.executeUpdate();
             pst.close();
-        } catch (Exception e) {
-            mensaje = "NO SE HA EDITADO CORRECTAMENTE " + e.getMessage();
-        }
-        return mensaje;
 
+            if (exito > 0) {
+                return 1; // Éxito al actualizar
+            } else {
+                return 2; // No se pudo actualizar
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 2; // Error al intentar actualizar
+        }
     }
 
     @Override
-    public String eliminarOpciones(Opciones op) {
+    public int delete(Opciones op) {
         PreparedStatement pst = null;
-        String mensaje = "";
-        String sql = "DELETE FROM opciones WHERE id =?";
+        String sql = "DELETE FROM opcion WHERE idOpcion = ?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1, op.getId());
-            mensaje = "OPCION ELIMINADA";
-            pst.executeUpdate();
+            int exito = pst.executeUpdate();
             pst.close();
+
+            if (exito > 0) {
+                return 1; // Éxito al eliminar
+            } else {
+                return 2; // No se pudo eliminar
+            }
         } catch (Exception e) {
-            mensaje = "NO SE HA ELIMINADO CORRECTAMENTE " + e.getMessage();
+            e.printStackTrace();
+            return 2; // Error al intentar eliminar
         }
-
-        return mensaje;
-
     }
 
     @Override
-    public List<Opciones> getOpciones() {
-        PreparedStatement pst = null;
-        String mensaje = "";
-        String query = "SELECT*FROM opciones";
+    public List<Opciones> getListado() {
+        String query = "SELECT*FROM opcion";
         List<Opciones> lista = new ArrayList<>();
         try {
             PreparedStatement stm = obtenerConexion().prepareStatement(query);
@@ -96,27 +98,22 @@ public class OpcionesDaoImpl implements IOpcionesDAO {
 
             while (rs.next()) {
                 lista.add(new Opciones(
-                        rs.getInt("id"),
-                        rs.getString("documento"),
+                        rs.getInt("idOpcion"),
+                        rs.getString("pagina"),
                         rs.getString("estado"),
                         rs.getString("descripcion"),
                         rs.getString("grupo")));
             }
-            mensaje = "OPCION SELECCIONADA";
         } catch (Exception e) {
             e.printStackTrace();
-            mensaje = "NO SE PUDO SELECCIONAR" + e.getMessage();
         }
         return lista;
 
     }
 
-    @Override
-    public Opciones getOpcionById(int id) {
+    public Opciones getByID(int id) {
 
-        PreparedStatement pst = null;
-        String mensaje = "";
-        String query = "SELECT*FROM opciones WHERE id=?";
+        String query = "SELECT*FROM opcion WHERE idOpcion=?";
         Opciones op = new Opciones();
         try {
             PreparedStatement stm = obtenerConexion().prepareStatement(query);
@@ -124,16 +121,14 @@ public class OpcionesDaoImpl implements IOpcionesDAO {
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
-                op.setId(rs.getInt("id"));
-                op.setDocumento(rs.getString("documento"));
+                op.setId(rs.getInt("idOpcion"));
+                op.setDocumento(rs.getString("pagina"));
                 op.setEstado(rs.getString("estado"));
                 op.setDescripcion(rs.getString("descripcion"));
                 op.setGrupo(rs.getString("grupo"));
             }
-            mensaje = "OPCION SELECCIONADA POR ID EXITOSAMENTE";
         } catch (Exception e) {
             e.printStackTrace();
-            mensaje = "NO SE PUDO SELECCIONAR POR ID" + e.getMessage();
         }
         return op;
 

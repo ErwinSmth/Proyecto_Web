@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </h:head>
+    <h:body style="padding-top: 60px; background-color: aquamarine">
+        <b:container fluid="true">
+            <h2 class=""> Logeo de un Usuario </h2>
+            <b:form>
+                <b:row>
+                    <b:column medium-screen="2">
+                        <h:outputText value="Usuario:"></h:outputText>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputText id="txtlogin" placeholder="Ingrese su usuario" value="#{user.login}">
+                            <f:facet name="prepend">
+                                <b:icon name="user"></b:icon>
+                            </f:facet>
+                        </b:inputText>
+                    </b:column>
+                    <b:column medium-screen="6">
+                        <b:message></b:message>
+                    </b:column>
+                </b:row>
+                <b:row>}
+                    <b:column medium-screen="2">
+                        <h:outputText value="Contraseña: "></h:outputText>
+                    </b:column>
+                    <b:column medium-screen="4"> 
+                        <b:inputSecret placeholder="Ingrese su contraseña" value="#{user.clave}"></b:inputSecret>
+                    </b:column>
+                    <b:column>
+                        <b:message></b:message>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="2" offset="2">
+                        <b:commandButton value="Ingresar" look="primary" style="width: 100%" action="#{user.validacion()}"></b:commandButton>
+                    </b:column>
+                </b:row>
+            </b:form>
+        </b:container>
+    </h:body>
+</html>

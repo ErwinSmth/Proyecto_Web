@@ -1,11 +1,15 @@
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\com\mycompany\proyecto_web\resources\JavaEE8Resource.java
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\dao\OpcionesDaoImpl.java
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\model\Producto.java
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\com\mycompany\proyecto_web\JAXRSConfiguration.java
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\dao\ProductoDAO.java
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\model\Opciones.java
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\model\OpcionesService.java
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\controller\OpcionBean.java
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\controller\ProductoBean.java
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\dao\IOpcionesDAO.java
-C:\Users\LAB-USR-CHIM-A0208\Desktop\PROYECTO_WEB\src\main\java\util\DataSource.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\model\Opciones.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\model\Usuario.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\util\DataSource.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\Service\UsuarioService.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\com\mycompany\proyecto_web\resources\JavaEE8Resource.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\dao\IDAO.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\controller\loginBean.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\controller\OpcionBean.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\dao\IOpcionesDAO.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\model\Rol.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\com\mycompany\proyecto_web\JAXRSConfiguration.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\controller\UsuarioBean.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\dao\UsuarioDAOImpl.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\dao\OpcionesDaoImpl.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\Service\OpcionesService.java

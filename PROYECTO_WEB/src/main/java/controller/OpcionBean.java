@@ -5,8 +5,9 @@ package controller;
 import java.util.List;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
+
+import Service.OpcionesService;
 import model.Opciones;
-import model.OpcionesService;
 
 @ManagedBean(name = "opcionBean")
 @RequestScoped
