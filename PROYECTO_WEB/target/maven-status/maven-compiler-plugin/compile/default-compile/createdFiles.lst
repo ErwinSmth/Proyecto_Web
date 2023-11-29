@@ -1,4 +1,6 @@
+model\Pagina.class
 dao\IDAO.class
+model\Persona.class
 com\mycompany\proyecto_web\JAXRSConfiguration.class
 controller\OpcionBean.class
 model\Opciones.class
@@ -9,6 +11,7 @@ Service\OpcionesService.class
 Service\UsuarioService.class
 util\DataSource.class
 dao\OpcionesDaoImpl.class
+model\Tipo_Documento.class
 controller\UsuarioBean.class
 com\mycompany\proyecto_web\resources\JavaEE8Resource.class
 dao\UsuarioDAOImpl.class

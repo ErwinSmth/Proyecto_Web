@@ -20,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="Usuario:"></h:outputText>
                     </b:column>
                     <b:column medium-screen="4">
-                        <b:inputText id="txtlogin" placeholder="Ingrese su usuario" value="#{user.login}">
+                        <b:inputText id="txtlogin" placeholder="Ingrese su usuario" value="#{user.us.login}" required="true">
                             <f:facet name="prepend">
                                 <b:icon name="user"></b:icon>
                             </f:facet>
@@ -35,7 +35,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="Contraseña: "></h:outputText>
                     </b:column>
                     <b:column medium-screen="4"> 
-                        <b:inputSecret placeholder="Ingrese su contraseña" value="#{user.clave}"></b:inputSecret>
+                        <b:inputSecret placeholder="Ingrese su contraseña" value="#{user.us.clave}" required="true"></b:inputSecret>
+                        <f:facet name="prepend">
+                            <b:icon name="password"></b:icon>
+                        </f:facet>
                     </b:column>
                     <b:column>
                         <b:message></b:message>
@@ -46,6 +49,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <b:commandButton value="Ingresar" look="primary" style="width: 100%" action="#{user.validacion}"></b:commandButton>
                     </b:column>
                 </b:row>
+            </b:form>
+
+            <b:form>
                 <b:row>
                     <b:column span="2" offset="2" style="padding-top: 0.5rem">
                         <b:commandButton value="Registrarse" look="info" style="width: 100%" action="#{user.redireccion}"></b:commandButton>

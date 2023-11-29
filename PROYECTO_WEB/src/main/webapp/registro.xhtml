@@ -1,40 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Registro de Usuario</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h1>Registro de Usuarios</h1>
+        <b:container>
+            <b:row>
+                <b:column medium-screen="10" offset="2">
+                    <h1>Registro de Usuarios</h1>
+                    <b:form>
+                        <b:row>
+                            <b:column medium-screen="2">
+                                <h:outputLabel value="Nombre de Usuario:"/>
+                            </b:column>
+                            <b:column medium-screen="4">
+                                <b:inputText id="txtlogin" placeholder="Ingrese su usuario" required="true" value="#{userBean.us.login}"/>
+                            </b:column>
+                        </b:row>
 
-        <b:container fluid="true">
-            <b:form>
-                <b:row>
-                    <b:column medium-screen="2">
-                        <h:outputLabel value="Nombre de Usuario:"/>
-                    </b:column>
-                    <b:column medium-screen="4">
-                        <b:inputText id="txtlogin" placeholder="Ingrese su usuario" required="true" value="#{userBean.login}"/>
-                    </b:column>
-                </b:row>
+                        <b:row>
+                            <b:column medium-screen="2">
+                                <h:outputLabel value="Clave:"/>
+                            </b:column>
+                            <b:column medium-screen="4">
+                                <b:inputSecret id="txtclave" placeholder="Ingrese su Contraseña" required="true" value="#{userBean.us.clave}"/>
+                            </b:column>
+                        </b:row>
 
-                <b:row>
-                    <b:column medium-screen="2">
-                        <h:outputLabel value="Clave:"/>
-                    </b:column>
-                    <b:column medium-screen="4">
-                        <b:inputSecret id="txtclave" placeholder="Ingrese su Contraseña" required="true" value="#{userBean.clave}"/>
-                    </b:column>
-                </b:row>
+                        <b:row>
+                            <b:column medium-screen="2">
+                                <h:outputLabel value="Primer Nombre:"/>
+                            </b:column>
+                            <b:column medium-screen="4">
+                                <b:inputText placeholder="Ingrese su primer nombre" required="true" value="#{userBean.persona.pri_nombre}"/>
+                            </b:column>
+                        </b:row>
 
-                <b:row>
-                    <b:column medium-screen="2" offset="2">
-                        <b:commandButton value="Registrarse" look="info" style="width: 100%" action="#{userBean.addUsuario()}"/>
-                    </b:column>
-                </b:row>
-            </b:form>
+                        <b:row>
+                            <b:column medium-screen="2">
+                                <h:outputLabel value="Segundo Nombre:"/>
+                            </b:column>
+                            <b:column medium-screen="4">
+                                <b:inputText placeholder="Ingrese su segundo nombre" value="#{userBean.persona.seg_nombre}"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="2">
+                                <h:outputLabel value="Apellido Paterno:"/>
+                            </b:column>
+                            <b:column medium-screen="4">
+                                <b:inputText placeholder="Ingrese su apellido paterno" required="true" value="#{userBean.persona.ape_paterno}"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="2">
+                                <h:outputLabel value="Apellido Materno:"/>
+                            </b:column>
+                            <b:column medium-screen="4">
+                                <b:inputText placeholder="Ingrese su apellido materno" value="#{userBean.persona.ape_materno}"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="2">
+                                <h:outputLabel value="Tipo de Documento:"/>
+                            </b:column>
+                            <b:column medium-screen="4">
+                                <b:selectOneMenu value="#{userBean.persona.tipoDoc}" required="true">
+                                    <f:selectItems value="#{userBean.listaDoc}" var="doc"
+                                                   itemLabel="#{doc.nombre_TD}" itemValue="#{doc}"/>
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="2">
+                                <h:outputLabel value="Número de Documento:"/>
+                            </b:column>
+                            <b:column medium-screen="4">
+                                <b:inputText placeholder="Ingrese su número de documento" required="true" 
+                                             value="#{userBean.persona.num_Doc}">
+                                    <f:validateLength maximum="15" />
+                                    <!-- Puedes agregar más validaciones aquí si lo necesitas -->
+                                </b:inputText>
+                                <h:message for="numDoc" style="color: red" />
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="2">
+                                <h:outputLabel value="Correo Electrónico:"/>
+                            </b:column>
+                            <b:column medium-screen="4">
+                                <b:inputText placeholder="Ingrese su correo electrónico" required="true" value="#{userBean.persona.correo}"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="2" offset="2">
+                                <b:commandButton value="Registrarse" look="info" style="width: 100%" action="#{userBean.Registro}"/>
+                            </b:column>
+                        </b:row>
+
+                    </b:form>
+                    <b:form>
+                        <b:row>
+                            <b:column medium-screen="2" offset="2">
+                                <b:commandButton value="Iniciar Sesion" look="ingo" style="width:100%" action="#{userBean.redireccionar()}"> </b:commandButton>
+                            </b:column>
+                        </b:row>
+                    </b:form>
+                </b:column>
+            </b:row>
         </b:container>
     </h:body>
 </html>

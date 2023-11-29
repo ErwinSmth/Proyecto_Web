@@ -15,31 +15,23 @@ import model.Usuario;
 @RequestScoped
 public class loginBean {
 
+    private Usuario us;
     private UsuarioService usSer;
-    private String login;
-    private String clave;
     private int idrol;
     private List<Pagina> paginas;
 
     @PostConstruct
     public void init() {
         this.usSer = new UsuarioService();
+        this.us = new Usuario();
     }
 
-    public String getLogin() {
-        return login;
+    public Usuario getUs() {
+        return us;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setUs(Usuario us) {
+        this.us = us;
     }
 
     public int getIdrol() {
@@ -55,7 +47,7 @@ public class loginBean {
     }
 
     public void setPaginas(List<Pagina> paginas) {
-        this.paginas = paginas;
+        this.paginas = usSer.redirecciones(us.getRol().getIdrol());
     }
 
     public List<Pagina> getTodasPaginas() {
@@ -65,20 +57,20 @@ public class loginBean {
 
     public void validacion() throws IOException {
 
-        Usuario user = usSer.login(login, clave);
+        Usuario user = usSer.login(us.getLogin(), us.getClave());
 
         if (!user.getLogin().isEmpty()) {
             System.out.println("Si se logeo");
             int id = user.getRol().getIdrol();
             setIdrol(id);
             System.out.println(id);
-            this.paginas = usSer.redirecciones(3);
+            this.paginas = usSer.redirecciones(user.getRol().getIdrol());
+            System.out.println(this.paginas);
 
             //1 --> interesado
             //2 --> especialista
             //3 --> administrador
 
-            System.out.println(getPaginas());
             FacesContext.getCurrentInstance().getExternalContext().redirect("Menu.xhtml");
 
         } else {
@@ -89,7 +81,7 @@ public class loginBean {
 
     public void redireccion() throws IOException {
 
-        FacesContext.getCurrentInstance().getExternalContext().redirect("registro.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("Registro.xhtml");
 
     }
 

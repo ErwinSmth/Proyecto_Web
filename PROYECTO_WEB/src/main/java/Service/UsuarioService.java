@@ -5,6 +5,7 @@ import java.util.List;
 import dao.UsuarioDAOImpl;
 import model.Pagina;
 import model.Persona;
+import model.Tipo_Documento;
 import model.Usuario;
 
 public class UsuarioService {
@@ -65,6 +66,13 @@ public class UsuarioService {
         
         UsuarioDAOImpl usDao = new UsuarioDAOImpl();
         return usDao.registro(persona);
+        
+    }
+    
+    public List<Tipo_Documento> getTiposDoc(){
+        
+        UsuarioDAOImpl usDao = new UsuarioDAOImpl();
+        return usDao.getTipoDocu();
         
     }
 

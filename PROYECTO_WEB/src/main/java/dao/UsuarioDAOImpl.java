@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Persona;
 import model.Rol;
+import model.Tipo_Documento;
 import model.Usuario;
 import util.DataSource;
 
@@ -60,7 +61,7 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
         PreparedStatement ps = null;
 
         String queryUsuario = "Insert into Usuario(login, clave, estado, idrol) values (?, ?, 'Activo', 1)";
-        String queryPersona = "Insert into Persona(prim_nomb, seg_nomb, ape_pater, ape_mater, id_tipo_doc, num_doc, correo, login)"
+        String queryPersona = "Insert into Persona(prim_nomb, seg_nomb, ape_pater, ape_mater, nom_TD, num_doc, correo, login)"
                 + "values(?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
@@ -81,7 +82,7 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
             ps.setString(2, persona.getSeg_nombre());
             ps.setString(3, persona.getApe_paterno());
             ps.setString(4, persona.getApe_materno());
-            ps.setInt(5, persona.getTipoDoc().getIdTD());
+            ps.setString(5, persona.getTipoDoc().getNombre_TD());
             ps.setString(6, persona.getNum_Doc());
             ps.setString(7, persona.getCorreo());
             ps.setString(8, persona.getUs().getLogin());
@@ -102,6 +103,33 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
             ex.printStackTrace();
         }
         return 2;
+    }
+    
+    public List<Tipo_Documento> getTipoDocu(){
+        
+        String query = "Select * from tipo_documento";
+        List<Tipo_Documento> tiposDoc = new ArrayList<>();
+        
+        try (PreparedStatement ps = conn.prepareStatement(query)){
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {                
+                
+                Tipo_Documento tipoDoc = new Tipo_Documento();
+                tipoDoc.setNombre_TD(rs.getString("nom_TD"));
+                
+                tiposDoc.add(tipoDoc);
+                
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        return tiposDoc;
     }
 
     @Override
@@ -320,4 +348,21 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
 
     }
 
+    public static void main(String[] args) {
+
+        Persona persona = new Persona("Robert", "Pierre", "Carrasco", "Mariñas", new Tipo_Documento("DNI"), "12345678", "robert@gmail.com", 
+        new Usuario("setBert", "123", "'Activo'", new Rol(3)));
+        
+        UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
+        int resultado = usuarioDAO.registro(persona);
+
+        if (resultado == 1) {
+            System.out.println("Se ha insertado correctamente.");
+        } else {
+            System.out.println("Ha ocurrido un problema al insertar.");
+        }
+    }
+
 }
+
+
