@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     </h:head>
     <h:body style="padding-top: 60px; background-color: aquamarine">
         <b:container fluid="true">
-            <h2 class=""> Logeo de un Usuario </h2>
+            <h2 class=""> Logeo de Usuarios</h2>
             <b:form>
                 <b:row>
                     <b:column medium-screen="2">
@@ -30,7 +30,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <b:message></b:message>
                     </b:column>
                 </b:row>
-                <b:row>}
+                <b:row>
                     <b:column medium-screen="2">
                         <h:outputText value="Contraseña: "></h:outputText>
                     </b:column>
@@ -43,7 +43,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="2">
-                        <b:commandButton value="Ingresar" look="primary" style="width: 100%" action="#{user.validacion()}"></b:commandButton>
+                        <b:commandButton value="Ingresar" look="primary" style="width: 100%" action="#{user.validacion}"></b:commandButton>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="2" offset="2" style="padding-top: 0.5rem">
+                        <b:commandButton value="Registrarse" look="info" style="width: 100%" action="#{user.redireccion}"></b:commandButton>
                     </b:column>
                 </b:row>
             </b:form>

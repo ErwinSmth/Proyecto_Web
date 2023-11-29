@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Registro de Usuario</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h1>Registro de Usuarios</h1>
+
+        <b:container fluid="true">
+            <b:form>
+                <b:row>
+                    <b:column medium-screen="2">
+                        <h:outputLabel value="Nombre de Usuario:"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputText id="txtlogin" placeholder="Ingrese su usuario" required="true" value="#{userBean.login}"/>
+                    </b:column>
+                </b:row>
+
+                <b:row>
+                    <b:column medium-screen="2">
+                        <h:outputLabel value="Clave:"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputSecret id="txtclave" placeholder="Ingrese su Contraseña" required="true" value="#{userBean.clave}"/>
+                    </b:column>
+                </b:row>
+
+                <b:row>
+                    <b:column medium-screen="2" offset="2">
+                        <b:commandButton value="Registrarse" look="info" style="width: 100%" action="#{userBean.addUsuario()}"/>
+                    </b:column>
+                </b:row>
+            </b:form>
+        </b:container>
+    </h:body>
+</html>

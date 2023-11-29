@@ -36,5 +36,12 @@ public class UsuarioService {
         UsuarioDAOImpl usDao = new UsuarioDAOImpl();
         return usDao.getByID(login);
     }
+    
+    public List<String> redirecciones(int rol){
+        
+        UsuarioDAOImpl usDao = new UsuarioDAOImpl();
+        return usDao.redireccionas(rol);
+        
+    }
 
 }

@@ -53,7 +53,7 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
     @Override
     public int add(Usuario objeto) {
 
-        String query = "Insert Into usuario (login, clave, estado, idrol)";
+        String query = "Insert Into usuario (login, clave, estado, idrol) values (?, ?, ?, ?)";
 
         try ( PreparedStatement ps = conn.prepareStatement(query)) {
 
@@ -192,6 +192,31 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
             e.printStackTrace();
         }
         return us;
+    }
+
+    public List<String> redireccionas(int idrol) {
+
+        List<String> paginas = new ArrayList<>();
+        String query = "SELECT DISTINCT o.pagina "
+                + "FROM Opcion o "
+                + "INNER JOIN Permiso p ON o.idopcion = p.idOpcion "
+                + "WHERE p.idrol = ?";
+
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, idrol);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String pagina = rs.getString("pagina");
+                paginas.add(pagina);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return paginas;
     }
 
 }

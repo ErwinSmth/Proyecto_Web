@@ -1,7 +1,14 @@
-dao\IOpcionesDAO.class
+dao\IDAO.class
 com\mycompany\proyecto_web\JAXRSConfiguration.class
 controller\OpcionBean.class
 model\Opciones.class
+model\Rol.class
+model\Usuario.class
+controller\loginBean.class
+Service\OpcionesService.class
+Service\UsuarioService.class
 util\DataSource.class
 dao\OpcionesDaoImpl.class
+controller\UsuarioBean.class
 com\mycompany\proyecto_web\resources\JavaEE8Resource.class
+dao\UsuarioDAOImpl.class
