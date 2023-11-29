@@ -1,10 +1,14 @@
 package dao;
 
+import model.Pagina;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import model.Persona;
 import model.Rol;
 import model.Usuario;
 import util.DataSource;
@@ -48,6 +52,56 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
             e.printStackTrace();
         }
         return us;
+    }
+
+    public int registro(Persona persona) {
+
+        PreparedStatement psUs = null;
+        PreparedStatement ps = null;
+
+        String queryUsuario = "Insert into Usuario(login, clave, estado, idrol) values (?, ?, 'Activo', 1)";
+        String queryPersona = "Insert into Persona(prim_nomb, seg_nomb, ape_pater, ape_mater, id_tipo_doc, num_doc, correo, login)"
+                + "values(?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+
+            conn.setAutoCommit(false);
+
+            psUs = conn.prepareStatement(queryUsuario);
+            //Datos del Usuario
+            Usuario usuario = persona.getUs();
+            psUs.setString(1, usuario.getLogin());
+            psUs.setString(2, usuario.getClave());
+
+            int exitoUS = psUs.executeUpdate();
+
+            ps = conn.prepareStatement(queryPersona);
+            //Datos de la Persona
+            ps.setString(1, persona.getPri_nombre());
+            ps.setString(2, persona.getSeg_nombre());
+            ps.setString(3, persona.getApe_paterno());
+            ps.setString(4, persona.getApe_materno());
+            ps.setInt(5, persona.getTipoDoc().getIdTD());
+            ps.setString(6, persona.getNum_Doc());
+            ps.setString(7, persona.getCorreo());
+            ps.setString(8, persona.getUs().getLogin());
+
+            int exitoPer = ps.executeUpdate();
+
+            //Si ambas inserciones se hacen correctamente
+            if (exitoPer > 0 && exitoUS > 0) {
+                conn.commit();
+                return 1; //Insertado Correctamente
+            } else {
+                conn.rollback();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 2;
     }
 
     @Override
@@ -194,9 +248,9 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
         return us;
     }
 
-    public List<String> redireccionas(int idrol) {
+    public List<Pagina> redireccionas(int idrol) {
 
-        List<String> paginas = new ArrayList<>();
+        List<Pagina> paginas = new ArrayList<>();
         String query = "SELECT DISTINCT o.pagina "
                 + "FROM Opcion o "
                 + "INNER JOIN Permiso p ON o.idopcion = p.idOpcion "
@@ -209,7 +263,8 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                String pagina = rs.getString("pagina");
+                Pagina pagina = new Pagina();
+                pagina.setNombrePagina(rs.getString("pagina"));
                 paginas.add(pagina);
             }
 
@@ -217,6 +272,52 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
             e.printStackTrace();
         }
         return paginas;
+    }
+
+    public List<Pagina> getPaginas() {
+
+        List<Pagina> paginas = new ArrayList<>();
+        String query = "SELECT * FROM opcion";
+
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                Pagina pagina = new Pagina();
+                pagina.setNombrePagina(rs.getString("pagina"));
+                paginas.add(pagina);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return paginas;
+    }
+
+    public List<Pagina> paginasRol1() {
+
+        List<Pagina> paginas = new ArrayList<>();
+        String query = "SELECT DISTINCT o.pagina "
+                + "FROM Opcion o "
+                + "INNER JOIN Permiso p ON o.idopcion = p.idOpcion "
+                + "WHERE p.idrol = 1";
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Pagina pagina = new Pagina();
+                pagina.setNombrePagina(rs.getString("pagina"));
+                paginas.add(pagina);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return paginas;
+
     }
 
 }
