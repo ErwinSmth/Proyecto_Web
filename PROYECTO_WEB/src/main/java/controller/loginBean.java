@@ -81,7 +81,7 @@ public class loginBean {
 
     public void redireccion() throws IOException {
 
-        FacesContext.getCurrentInstance().getExternalContext().redirect("Registro.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("Registro de Usuario.xhtml");
 
     }
 

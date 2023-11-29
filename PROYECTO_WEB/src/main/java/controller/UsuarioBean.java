@@ -70,7 +70,7 @@ public class UsuarioBean {
         if (usService.addUsuario(newUs) == 1) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
         } else {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("registro.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("Registro de Usuario.xhtml");
         }
 
     }
@@ -131,7 +131,7 @@ public class UsuarioBean {
 
             //Se registro correctamente
             if (usService.Registro(newPer) == 1) {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("Registro.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("Registro de Usuario.xhtml");
                 return 1;
             } else { //Ocurrio un erro
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ocurrió un error al registrar."));
