@@ -62,4 +62,6 @@ public class Opciones {
         this.grupo = grupo;
     }
 
+    
+
 }

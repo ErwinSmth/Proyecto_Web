@@ -1,10 +1,7 @@
-
 package controller;
-
 
 import java.util.List;
 import javax.faces.bean.*;
-import javax.faces.context.FacesContext;
 
 import Service.OpcionesService;
 import model.Opciones;
@@ -13,14 +10,13 @@ import model.Opciones;
 @RequestScoped
 
 public class OpcionBean {
-    
-    private OpcionesService objCS=new OpcionesService();
-    
+
+    private OpcionesService objCS = new OpcionesService();
+
     public List<Opciones> getOpciones() {
         return objCS.getOpcionesLista();
-    }
 
-   
+    }
 
     public OpcionBean() {
     }
@@ -36,8 +32,5 @@ public class OpcionBean {
     public void eliminar(Opciones op) {
 
     }
-
-    
-    
 
 }

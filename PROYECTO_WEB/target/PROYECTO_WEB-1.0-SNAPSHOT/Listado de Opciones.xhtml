@@ -14,10 +14,10 @@
         <h:form>
             <b:dataTable value="#{opcionBean.opciones}" var="Opciones">
                 <b:dataTableColumn width="50" value="#{Opciones.id}" label="IDopcion"/>                   
-                <b:dataTableColumn width="50" value="#{Opciones.documento}" label="Documento"/>
+                <b:dataTableColumn width="50" value="#{Opciones.documento}" label="Pagina"/>
                 <b:dataTableColumn width="50" value="#{Opciones.estado}" label="Estado"/>
-                <b:dataTableColumn width="50" value="#{opciones.descripcion}" label="Descripcion"/>
-                <b:dataTableColumn width="50" value="#{opciones.grupo}" label="Grupo"/>
+                <b:dataTableColumn width="50" value="#{Opciones.descripcion}" label="Descripcion"/>
+                <b:dataTableColumn width="50" value="#{Opciones.grupo}" label="Grupo"/>
             </b:dataTable>
         </h:form>
     </h:body>
