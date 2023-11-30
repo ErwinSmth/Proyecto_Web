@@ -111,29 +111,14 @@ public class UsuarioBean {
         Persona newPer = new Persona(persona.getPri_nombre(), persona.getSeg_nombre(), persona.getApe_paterno(), persona.getApe_materno(), 
                 new Tipo_Documento(persona.getTipoDoc().getNombre_TD()), persona.getNum_Doc(), persona.getCorreo(), 
                 new Usuario(us.getLogin(), us.getClave(), "'Activo'", new Rol(1)));
-//        newPer.setPri_nombre(persona.getPri_nombre());
-//        newPer.setSeg_nombre(persona.getSeg_nombre());
-//        newPer.setApe_paterno(persona.getApe_paterno());
-//        newPer.setApe_materno(persona.getApe_materno());
-//        newPer.setTipoDoc(persona.getTipoDoc());
-//        newPer.setNum_Doc(persona.getNum_Doc());
-//        newPer.setCorreo(persona.getCorreo());
-//        
-//        newUs.setLogin(us.getLogin());
-//        newUs.setClave(us.getClave());
-//        newUs.setEstado("Activo");
-//        newUs.setRol(new Rol(1));
-//        newPer.setUs(newUs);
-        
-        
-
+                
         if (validarDocumento(newPer.getTipoDoc().getNombre_TD(), newPer.getNum_Doc())) {
 
             //Se registro correctamente
             if (usService.Registro(newPer) == 1) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("Registro de Usuario.xhtml");
                 return 1;
-            } else { //Ocurrio un erro
+            } else { //Ocurrio un error
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ocurrió un error al registrar."));
                 return 2;
             }

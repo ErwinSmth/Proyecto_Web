@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Registro de Usuario</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -85,11 +86,11 @@
                             </b:column>
                             <b:column medium-screen="4">
                                 <b:inputText placeholder="Ingrese su número de documento" required="true" 
-                                             value="#{userBean.persona.num_Doc}">
+                                             value="#{userBean.persona.num_Doc}" id="numDoc" onkeyup="validarDocumento()">
                                     <f:validateLength maximum="15" />
-                                    <!-- Puedes agregar más validaciones aquí si lo necesitas -->
+                                    <h:outputScript library="js" name="Validacion.js"/>
                                 </b:inputText>
-                                <h:message for="numDoc" style="color: red" />
+                                <p style= "color: blue" id="docError"></p>
                             </b:column>
                         </b:row>
 
@@ -98,7 +99,9 @@
                                 <h:outputLabel value="Correo Electrónico:"/>
                             </b:column>
                             <b:column medium-screen="4">
-                                <b:inputText placeholder="Ingrese su correo electrónico" required="true" value="#{userBean.persona.correo}"/>
+                                <b:inputText placeholder="Ingrese su correo electrónico" required="true" value="#{userBean.persona.correo}">
+                                    <f:validateLength minimum="7"></f:validateLength>
+                                </b:inputText>
                             </b:column>
                         </b:row>
 

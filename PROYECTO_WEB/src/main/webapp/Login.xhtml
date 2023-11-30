@@ -20,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="Usuario:"></h:outputText>
                     </b:column>
                     <b:column medium-screen="4">
-                        <b:inputText id="txtlogin" placeholder="Ingrese su usuario" value="#{user.us.login}" required="true">
+                        <b:inputText id="txtlogin" placeholder="Ingrese su usuario" value="#{user.login}" required="true">
                             <f:facet name="prepend">
                                 <b:icon name="user"></b:icon>
                             </f:facet>
@@ -35,7 +35,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                         <h:outputText value="Contraseña: "></h:outputText>
                     </b:column>
                     <b:column medium-screen="4"> 
-                        <b:inputSecret placeholder="Ingrese su contraseña" value="#{user.us.clave}" required="true"></b:inputSecret>
+                        <b:inputSecret placeholder="Ingrese su contraseña" value="#{user.clave}" required="true"></b:inputSecret>
                         <f:facet name="prepend">
                             <b:icon name="password"></b:icon>
                         </f:facet>
