@@ -23,6 +23,7 @@ public class loginBean {
     private List<List<Pagina>> paginasPorRol;
     private String login;
     private String clave;
+    private Rol rol;
 
     @PostConstruct
     public void init() {
@@ -35,6 +36,14 @@ public class loginBean {
             paginasPorRol.add(paginas);
 
         }
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public Usuario getUs() {
@@ -77,18 +86,15 @@ public class loginBean {
         this.clave = clave;
     }
 
-    
-    
     public void validacion() throws IOException {
 
         Usuario user = usSer.login(login, clave);
-        setIdrol(user.getRol().getIdrol());
-        
+        setRol(user.getRol());
 
         if (!user.getLogin().isEmpty()) {
 
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
-            
+
 //            // Obtener las páginas por rol después de la autenticación
 //            for (int i = 0; i < 3; i++) {
 //                List<Pagina> paginas = usSer.redirecciones(i + 1);
@@ -97,6 +103,8 @@ public class loginBean {
 //
 //            // Almacenar las páginas por rol en la sesión del usuario
 //            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("paginasPorRol", paginasPorRol);
+            List<Pagina> paginasporRol = usSer.redirecciones(user.getRol().getIdrol());
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("paginasPorRol", paginasporRol);
 
             // Redirigir al menú después de la autenticación
             FacesContext.getCurrentInstance().getExternalContext().redirect("Menu.xhtml");

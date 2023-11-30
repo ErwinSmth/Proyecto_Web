@@ -19,25 +19,21 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <p:panelMenu styleClass="navbar-nav me-auto mb-2 mb-lg-0 ms-0">
-                        <ui:repeat value="#{user.paginasPorRol}" var="paginasPorRol" varStatus="status">
-                            <p:submenu label="Rol #{status.index + 1}" rendered="#{user.us.rol.idrol eq status.index + 1}">
-                                <ui:repeat value="#{paginasPorRol}" var="pagina">
-                                    <p:menuitem value="#{pagina.nombrePagina}" outcome="#{pagina.nombrePagina}" />
-                                </ui:repeat>
-                            </p:submenu>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-0">
+                        <ui:repeat value="#{user.todasPaginas}" var="pagina">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#{pagina.nombrePagina}">#{pagina.nombrePagina}</a>
+                                </li>
                         </ui:repeat>
-                    </p:panelMenu>
-
+                    </ul>
                 </div>
-
             </div>
         </nav>
         <!-- Agregar texto para mostrar el login y el idrol del usuario -->
         <h:panelGroup rendered="#{user != null}">
             <h:outputText value="Login: #{user.login}" />
             <br></br>
-            <h:outputText value="Idrol: #{user.idrol != null ? user.idrol : 'No disponible'}" />
+            <h:outputText value="Idrol: #{user.rol != null ? user.rol.idrol : 'No disponible'}" />
         </h:panelGroup>
     </h:body>
 </html>
