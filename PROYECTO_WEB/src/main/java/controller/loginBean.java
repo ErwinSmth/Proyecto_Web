@@ -7,35 +7,28 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import Service.UsuarioService;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import model.Rol;
 import model.Usuario;
 
-@ManagedBean(name = "user")
+@ManagedBean(name = "login")
 @RequestScoped
 public class loginBean {
 
     private Usuario us;
     private UsuarioService usSer;
     private int idrol;
-    private List<List<Pagina>> paginasPorRol;
     private String login;
     private String clave;
     private Rol rol;
+    private List<Pagina> paginas;
 
     @PostConstruct
     public void init() {
         this.usSer = new UsuarioService();
         this.us = new Usuario();
-        this.paginasPorRol = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++) {
-            List<Pagina> paginas = usSer.redirecciones(i + 1);
-            paginasPorRol.add(paginas);
-
-        }
     }
 
     public Rol getRol() {
@@ -62,12 +55,12 @@ public class loginBean {
         this.idrol = idrol;
     }
 
-//    public void setPaginas(List<Pagina> paginas) {
-//        this.paginas = usSer.redirecciones(us.getRol().getIdrol());
-//    }
-    public List<Pagina> getTodasPaginas() {
-        return usSer.getPaginas();
+    public List<Pagina> getPaginas() {
+        return paginas;
+    }
 
+    public void setPaginas(List<Pagina> paginas) {
+        this.paginas = paginas;
     }
 
     public String getLogin() {
@@ -88,25 +81,20 @@ public class loginBean {
 
     public void validacion() throws IOException {
 
-        Usuario user = usSer.login(login, clave);
-        setRol(user.getRol());
+        Usuario uselog = usSer.login(login, clave);
+        setRol(uselog.getRol());
+        us = uselog;
 
-        if (!user.getLogin().isEmpty()) {
+        if (!uselog.getLogin().isEmpty()) {
+            
+//            List<Pagina> pagixRol = usSer.redirecciones(uselog.getRol().getIdrol());
+//            setPaginas(pagixRol);
+            
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", uselog);
+            
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("paginasPorRol", usSer.redirecciones(uselog.getRol().getIdrol()));
 
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
 
-//            // Obtener las páginas por rol después de la autenticación
-//            for (int i = 0; i < 3; i++) {
-//                List<Pagina> paginas = usSer.redirecciones(i + 1);
-//                paginasPorRol.add(paginas);
-//            }
-//
-//            // Almacenar las páginas por rol en la sesión del usuario
-//            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("paginasPorRol", paginasPorRol);
-            List<Pagina> paginasporRol = usSer.redirecciones(user.getRol().getIdrol());
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("paginasPorRol", paginasporRol);
-
-            // Redirigir al menú después de la autenticación
             FacesContext.getCurrentInstance().getExternalContext().redirect("Menu.xhtml");
 
             //1 --> interesado

@@ -4,6 +4,7 @@
  */
 package model;
 
+
 /**
  *
  * @author DAVID
@@ -24,6 +25,7 @@ public class Usuario {
         this.estado = estado;
         this.rol = rol;
     }
+    
 
     public String getLogin() {
         return login;

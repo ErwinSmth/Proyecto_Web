@@ -20,21 +20,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-0">
-                        <ui:repeat value="#{user.todasPaginas}" var="pagina">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#{pagina.nombrePagina}">#{pagina.nombrePagina}</a>
-                                </li>
+                        <ui:repeat value="#{sessionScope.paginasPorRol}" var="pagina">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#{pagina.nombrePagina}">#{pagina.nombrePagina}</a>
+                            </li>
                         </ui:repeat>
                     </ul>
                 </div>
+
             </div>
         </nav>
-        <!-- Agregar texto para mostrar el login y el idrol del usuario -->
-        <h:panelGroup rendered="#{user != null}">
-            <h:outputText value="Login: #{user.login}" />
-            <br></br>
-            <h:outputText value="Idrol: #{user.rol != null ? user.rol.idrol : 'No disponible'}" />
-        </h:panelGroup>
+        <br></br>
+        <br></br>
+        <br></br>
     </h:body>
 </html>
 
