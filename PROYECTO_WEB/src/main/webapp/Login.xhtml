@@ -10,54 +10,60 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
     <h:head>
         <title>Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </h:head>
     <h:body style="padding-top: 60px; background-color: aquamarine">
-        <b:container fluid="true">
-            <h2 class=""> Logeo de Usuarios</h2>
-            <b:form>
-                <b:row>
-                    <b:column medium-screen="2">
-                        <h:outputText value="Usuario:"></h:outputText>
-                    </b:column>
-                    <b:column medium-screen="4">
-                        <b:inputText id="txtlogin" placeholder="Ingrese su usuario" value="#{login.login}" required="true">
+        <div class="mb-3">
+            <b:container fluid="true">
+                <h:form>
+                    <b:row>
+                        <b:column medium-screen="2">
+                            <h:outputText value="Nombre de Usuario:" style="font-size: 2rem"></h:outputText>
+                        </b:column>
+                        <b:column medium-screen="4">
+                            <b:inputText id="txtlogin" placeholder="Ingrese su usuario" value="#{login.login}" required="true" style="font-size: 1.5rem">
+                                <f:facet name="prepend">
+                                    <b:icon name="user"></b:icon>
+                                </f:facet>
+                            </b:inputText>
+                        </b:column>
+                        <b:column medium-screen="6">
+                            <b:message></b:message>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column medium-screen="2">
+                            <h:outputText value="Contraseña: " style="font-size: 2rem"></h:outputText>
+                        </b:column>
+                        <b:column medium-screen="4"> 
+                            <b:inputSecret placeholder="Ingrese su contraseña" value="#{login.clave}" required="true" style="font-size: 1.5rem"></b:inputSecret>
                             <f:facet name="prepend">
-                                <b:icon name="user"></b:icon>
+                                <b:icon name="password"></b:icon>
                             </f:facet>
-                        </b:inputText>
-                    </b:column>
-                    <b:column medium-screen="6">
-                        <b:message></b:message>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column medium-screen="2">
-                        <h:outputText value="Contraseña: "></h:outputText>
-                    </b:column>
-                    <b:column medium-screen="4"> 
-                        <b:inputSecret placeholder="Ingrese su contraseña" value="#{login.clave}" required="true"></b:inputSecret>
-                        <f:facet name="prepend">
-                            <b:icon name="password"></b:icon>
-                        </f:facet>
-                    </b:column>
-                    <b:column>
-                        <b:message></b:message>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="2" offset="2">
-                        <b:commandButton value="Ingresar" look="primary" style="width: 100%" action="#{login.validacion}"></b:commandButton>
-                    </b:column>
-                </b:row>
-            </b:form>
+                        </b:column>
+                        <b:column>
+                            <b:message></b:message>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="2" offset="2">
+                            <h:commandButton value="Ingresar" class="btn btn-primary" action="#{login.validacion}" style="font-size: 2rem"></h:commandButton>
+                        </b:column>
+                    </b:row>
+                </h:form>
 
-            <b:form>
-                <b:row>
-                    <b:column span="2" offset="2" style="padding-top: 0.5rem">
-                        <b:commandButton value="Registrarse" look="info" style="width: 100%" action="#{login.redireccion}"></b:commandButton>
-                    </b:column>
-                </b:row>
-            </b:form>
-        </b:container>
+
+
+                <h:form>
+                    <b:row>
+                        <b:column span="2" offset="2" style="padding-top: 0.5rem">
+                            <h:commandButton value="Registrarse" class="btn btn-primary" action="#{login.redireccion}" style="font-size: 2rem"></h:commandButton>
+                        </b:column>
+                    </b:row>
+                </h:form>
+            </b:container>
+
+        </div>
     </h:body>
 </html>

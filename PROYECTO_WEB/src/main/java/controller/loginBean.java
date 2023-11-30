@@ -91,6 +91,7 @@ public class loginBean {
 //            setPaginas(pagixRol);
             
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", uselog);
+            System.out.println(usSer.redirecciones(uselog.getRol().getIdrol()));
             
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("paginasPorRol", usSer.redirecciones(uselog.getRol().getIdrol()));
 

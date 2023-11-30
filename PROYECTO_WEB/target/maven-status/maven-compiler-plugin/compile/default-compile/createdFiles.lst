@@ -1,10 +1,14 @@
 model\Pagina.class
+Service\Tipo_TramiteService.class
 dao\IDAO.class
 model\Persona.class
 com\mycompany\proyecto_web\JAXRSConfiguration.class
 controller\OpcionBean.class
 model\Opciones.class
 model\Rol.class
+model\Anexo.class
+dao\Tipo_TramiteDAOImpl.class
+model\Tipo_Tramite.class
 model\Usuario.class
 controller\loginBean.class
 Service\OpcionesService.class
@@ -12,6 +16,8 @@ Service\UsuarioService.class
 util\DataSource.class
 dao\OpcionesDaoImpl.class
 model\Tipo_Documento.class
+model\Tramite.class
 controller\UsuarioBean.class
 com\mycompany\proyecto_web\resources\JavaEE8Resource.class
 dao\UsuarioDAOImpl.class
+controller\Tipo_TramiteBean.class
