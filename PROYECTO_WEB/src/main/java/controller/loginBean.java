@@ -87,8 +87,6 @@ public class loginBean {
 
         if (!uselog.getLogin().isEmpty()) {
             
-//            List<Pagina> pagixRol = usSer.redirecciones(uselog.getRol().getIdrol());
-//            setPaginas(pagixRol);
             
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", uselog);
             System.out.println(usSer.redirecciones(uselog.getRol().getIdrol()));
@@ -107,18 +105,10 @@ public class loginBean {
 
     }
 
-    public List<List<Pagina>> getPaginasPorRol() {
-        return (List<List<Pagina>>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("paginasPorRol");
-    }
-
     public void redireccion() throws IOException {
 
         FacesContext.getCurrentInstance().getExternalContext().redirect("Registro de Usuario.xhtml");
 
-    }
-
-    public String redirectPage(String nombrePagina) {
-        return nombrePagina + "?faces-redirect=true";
     }
 
 }
