@@ -42,6 +42,11 @@ public class Tramite {
         this.fecha_limite = fecha_limite;
     }
 
+    public Tramite() {
+    }
+    
+    
+
     public int getId_tramite() {
         return id_tramite;
     }

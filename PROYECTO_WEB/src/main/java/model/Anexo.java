@@ -33,6 +33,10 @@ public class Anexo {
         this.fecha_registro = fecha_registro;
     }
 
+    public Anexo() {
+    }
+   
+
     public int getId_documento() {
         return id_documento;
     }

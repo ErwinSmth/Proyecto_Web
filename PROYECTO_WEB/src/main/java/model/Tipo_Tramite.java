@@ -18,6 +18,12 @@ public class Tipo_Tramite {
         this.descripcion = descripcion;
     }
 
+    public Tipo_Tramite(String nom_TT) {
+        this.nom_TT = nom_TT;
+    }
+    
+    
+
     public Tipo_Tramite() {
     }
 
