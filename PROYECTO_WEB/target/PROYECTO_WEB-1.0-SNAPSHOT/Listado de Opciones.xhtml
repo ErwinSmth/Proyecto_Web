@@ -9,6 +9,15 @@
     </link>
     <h:head>
         <title>Listado de opciones</title>
+        <style>
+            .navbar-nav .nav-link {
+                font-size: 1.2rem;
+            }
+
+            .navbar-nav .nav-item {
+                margin-right: 7rem;
+            }
+        </style>
     </h:head>
     <h:body>
 
@@ -31,15 +40,31 @@
                 </div>
             </div>
         </nav>
-
-        <h:form>
-            <b:dataTable value="#{opcionBean.opciones}" var="Opciones">
-                <b:dataTableColumn width="50" value="#{Opciones.id}" label="IDopcion"/>                   
-                <b:dataTableColumn width="50" value="#{Opciones.documento}" label="Pagina"/>
-                <b:dataTableColumn width="50" value="#{Opciones.estado}" label="Estado"/>
-                <b:dataTableColumn width="50" value="#{Opciones.descripcion}" label="Descripcion"/>
-                <b:dataTableColumn width="50" value="#{Opciones.grupo}" label="Grupo"/>
-            </b:dataTable>
-        </h:form>
+        <div class="container mt-4">
+            <h:form>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID Opción</th>
+                            <th>Página</th>
+                            <th>Estado</th>
+                            <th>Descripción</th>
+                            <th>Grupo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat value="#{opcionBean.opciones}" var="opcion">
+                            <tr>
+                                <td>#{opcion.id}</td>
+                                <td>#{opcion.documento}</td>
+                                <td>#{opcion.estado}</td>
+                                <td>#{opcion.descripcion}</td>
+                                <td>#{opcion.grupo}</td>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                </table>
+            </h:form>
+        </div>
     </h:body>
 </html>

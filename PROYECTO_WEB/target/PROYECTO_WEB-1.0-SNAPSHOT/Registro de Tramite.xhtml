@@ -1,15 +1,89 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Formulario de Trámite</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        <style>
+            .form-group label {
+                font-size: 2.2rem;
+            }
+
+            .form-control {
+                font-size: 2.2rem; 
+                height: 4.5rem; 
+            }
+
+            .navbar-nav .nav-link {
+                font-size: 2.2rem;
+            }
+
+            .navbar-nav .nav-item {
+                margin-right: 7rem; 
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-5">
+                        <ui:repeat value="#{sessionScope.paginasPorRol}" var="pagina">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#{pagina.nombrePagina}" style="color: white">
+                                    #{pagina.nombrePagina.substring(0, pagina.nombrePagina.lastIndexOf('.'))}
+                                </a>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <h:form>
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1>Información de la Persona</h1>
+                        <div class="form-group">
+                            <label for="nombre">Nombre(s):</label>
+                            <input type="text" class="form-control" value="#{tramiteBean.persona.pri_nombre} #{tramiteBean.persona.seg_nombre}" readonly="true" />
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidos">Apellidos:</label>
+                            <input type="text" class="form-control" value="#{tramiteBean.persona.ape_paterno} #{tramiteBean.persona.ape_materno}" readonly="true" />
+                        </div>
+                        <div class="form-group">
+                            <label for="correo">Correo:</label>
+                            <input type="text" class="form-control" value="#{tramiteBean.persona.correo}" readonly="true" />
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <b:selectOneMenu value="#{tramiteBean.tipoTramiteSeleccionado}">
+                                <f:selectItem itemLabel="-- Seleccionar Tipo de Trámite --" itemValue="" />
+                                <f:selectItems value="#{tramiteBean.listado}" var="tipo" itemLabel="#{tipo.nom_TT}" itemValue="#{tipo}" />
+                            </b:selectOneMenu>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <b:commandButton value="Agregar Trámite" action="#{tramiteBean.addTramite()}" look="primary" style="font-size: 2rem" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
 </html>

@@ -106,12 +106,12 @@ public class UsuarioBean {
         }
     }
 
-    public int Registro() throws IOException {
+    public int Registrar() throws IOException {
 
-        Persona newPer = new Persona(persona.getPri_nombre(), persona.getSeg_nombre(), persona.getApe_paterno(), persona.getApe_materno(), 
-                new Tipo_Documento(persona.getTipoDoc().getNombre_TD()), persona.getNum_Doc(), persona.getCorreo(), 
+        Persona newPer = new Persona(persona.getPri_nombre(), persona.getSeg_nombre(), persona.getApe_paterno(), persona.getApe_materno(),
+                new Tipo_Documento(persona.getTipoDoc().getNombre_TD()), persona.getNum_Doc(), persona.getCorreo(),
                 new Usuario(us.getLogin(), us.getClave(), "'Activo'", new Rol(1)));
-                
+
         if (validarDocumento(newPer.getTipoDoc().getNombre_TD(), newPer.getNum_Doc())) {
 
             //Se registro correctamente
@@ -130,8 +130,8 @@ public class UsuarioBean {
         }
 
     }
-    
-    public void redireccionar() throws IOException{
+
+    public void redireccionar() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
     }
 

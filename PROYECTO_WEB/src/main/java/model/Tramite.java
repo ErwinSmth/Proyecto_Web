@@ -44,6 +44,11 @@ public class Tramite {
 
     public Tramite() {
     }
+
+    public Tramite(Persona persona, Tipo_Tramite tipoTramite) {
+        this.persona = persona;
+        this.tipoTramite = tipoTramite;
+    }
     
     
 

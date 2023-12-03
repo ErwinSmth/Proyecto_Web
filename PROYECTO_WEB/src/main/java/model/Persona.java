@@ -46,6 +46,12 @@ public class Persona {
         this.us = us;
     }
 
+    public Persona(int idpersona) {
+        this.idpersona = idpersona;
+    }
+    
+    
+
     public int getIdpersona() {
         return idpersona;
     }

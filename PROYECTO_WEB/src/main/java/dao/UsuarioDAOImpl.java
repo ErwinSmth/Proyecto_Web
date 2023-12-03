@@ -104,31 +104,31 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
         }
         return 2;
     }
-    
-    public List<Tipo_Documento> getTipoDocu(){
-        
+
+    public List<Tipo_Documento> getTipoDocu() {
+
         String query = "Select * from tipo_documento";
         List<Tipo_Documento> tiposDoc = new ArrayList<>();
-        
-        try (PreparedStatement ps = conn.prepareStatement(query)){
-            
+
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
             ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {                
-                
+
+            while (rs.next()) {
+
                 Tipo_Documento tipoDoc = new Tipo_Documento();
                 tipoDoc.setNombre_TD(rs.getString("nom_TD"));
-                
+
                 tiposDoc.add(tipoDoc);
-                
+
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
+
         return tiposDoc;
     }
 
@@ -324,35 +324,11 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
         return paginas;
     }
 
-    public List<Pagina> paginasRol1() {
-
-        List<Pagina> paginas = new ArrayList<>();
-        String query = "SELECT DISTINCT o.pagina "
-                + "FROM Opcion o "
-                + "INNER JOIN Permiso p ON o.idopcion = p.idOpcion "
-                + "WHERE p.idrol = 1";
-        try ( PreparedStatement ps = conn.prepareStatement(query)) {
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Pagina pagina = new Pagina();
-                pagina.setNombrePagina(rs.getString("pagina"));
-                paginas.add(pagina);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return paginas;
-
-    }
-
     public static void main(String[] args) {
 
-        Persona persona = new Persona("Robert", "Pierre", "Carrasco", "Mariñas", new Tipo_Documento("DNI"), "12345678", "robert@gmail.com", 
-        new Usuario("setBert", "123", "'Activo'", new Rol(3)));
-        
+        Persona persona = new Persona("Robert", "Pierre", "Carrasco", "Mariñas", new Tipo_Documento("DNI"), "12345678", "robert@gmail.com",
+                new Usuario("setBert", "123", "'Activo'", new Rol(3)));
+
         UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
         int resultado = usuarioDAO.registro(persona);
 
@@ -364,5 +340,3 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
     }
 
 }
-
-

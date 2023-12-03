@@ -190,7 +190,7 @@ public class TramiteDaoImpl implements IDAO<Tramite> {
 
                 //cantidad de documentos
                 tramite.setCant_Documentos(rs.getInt("cant_documentos"));
-                
+
                 lista.add(tramite);
 
             }
@@ -199,6 +199,88 @@ public class TramiteDaoImpl implements IDAO<Tramite> {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    public void updateCantDoc(int idtramite) {
+
+        //Obtener la cantidad actual de documentos para el tramite
+        String query = "SELECT COUNT(*) AS cantidad FROM anexo WHERE id_tramite = ?";
+
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, idtramite);
+            ResultSet rs = ps.executeQuery();
+
+            int cantidadDoc = 0;
+            if (rs.next()) {
+                cantidadDoc = rs.getInt("cantidad");
+            }
+
+            //Actualizamos la cantidad de documentos para el tramite
+            String updateQuery = "Update tramite set cant_documentos = ? WHERE id_tramite = ?";
+            PreparedStatement ps2 = conn.prepareStatement(updateQuery);
+            ps2.setInt(1, cantidadDoc);
+            ps2.setInt(2, idtramite);
+            ps2.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //Metodo que podria implementarse en los endpoints
+    public Persona getPersonaByUS(String login) {
+
+        Persona persona = null;
+        String query = "SELECT * FROM persona where login = ?";
+
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, login);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                persona = new Persona();
+                persona.setIdpersona(rs.getInt("id_persona"));
+                persona.setPri_nombre(rs.getString("prim_nomb"));
+                persona.setSeg_nombre(rs.getString("seg_nomb"));
+                persona.setApe_paterno(rs.getString("ape_pater"));
+                persona.setApe_materno(rs.getString("ape_mater"));
+                persona.setNum_Doc(rs.getString("num_doc"));
+                persona.setCorreo(rs.getString("correo"));
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return persona;
+    }
+
+    public List<Tipo_Tramite> getlistaTiTra() {
+
+        List<Tipo_Tramite> listado = new ArrayList<>();
+        String query = "Select * from tipo_tramite";
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Tipo_Tramite tipoTra = new Tipo_Tramite();
+                tipoTra.setNom_TT(rs.getString("Nom_TT"));
+                tipoTra.setDescripcion(rs.getString("Descripcion"));
+                listado.add(tipoTra);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listado;
+
     }
 
 }

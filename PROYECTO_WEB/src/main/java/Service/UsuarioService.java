@@ -54,13 +54,6 @@ public class UsuarioService {
 
     }
 
-    public List<Pagina> paginasRol1() {
-
-        UsuarioDAOImpl usDao = new UsuarioDAOImpl();
-        return usDao.paginasRol1();
-
-    }
-
     
     public int Registro(Persona persona) {
         

@@ -6,6 +6,8 @@ package Service;
 
 import dao.TramiteDaoImpl;
 import java.util.List;
+import model.Persona;
+import model.Tipo_Tramite;
 import model.Tramite;
 
 /**
@@ -46,6 +48,20 @@ public class TramiteService {
 
         TramiteDaoImpl tramiteDao = new TramiteDaoImpl();
         return tramiteDao.getListadoByID(id);
+
+    }
+
+    public Persona getPersonaByUs(String login) {
+
+        TramiteDaoImpl tramiteDao = new TramiteDaoImpl();
+        return tramiteDao.getPersonaByUS(login);
+
+    }
+
+    public List<Tipo_Tramite> getListaTra() {
+
+        TramiteDaoImpl tramiteDao = new TramiteDaoImpl();
+        return tramiteDao.getlistaTiTra();
 
     }
 
