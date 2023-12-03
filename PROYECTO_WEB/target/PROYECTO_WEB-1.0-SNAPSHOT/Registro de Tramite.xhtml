@@ -13,8 +13,8 @@
             }
 
             .form-control {
-                font-size: 2.2rem; 
-                height: 4.5rem; 
+                font-size: 2.2rem;
+                height: 4.5rem;
             }
 
             .navbar-nav .nav-link {
@@ -22,7 +22,7 @@
             }
 
             .navbar-nav .nav-item {
-                margin-right: 7rem; 
+                margin-right: 7rem;
             }
         </style>
     </h:head>
@@ -64,6 +64,34 @@
                             <input type="text" class="form-control" value="#{tramiteBean.persona.correo}" readonly="true" />
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <!-- Tabla de Requisitos -->
+                        <h:panelGroup rendered="#{not empty tramiteBean.requisitos}">
+                            <h1>Requisitos del Trámite</h1>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="font-size: 18px; max-width: 800px;">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Nombre del Requisito</th>
+                                            <th>Descripción</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ui:repeat var="req" value="#{tramiteBean.requisitos}">
+                                            <tr>
+                                                <td>#{req.nom_Req}</td>
+                                                <td>#{req.descripcion}</td>
+                                                <td>
+                                                    <h:outputText value="#{req.estado == 1 ? 'Por Completar' : req.estado}" />
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </h:panelGroup>
+                    </div>
                 </div>
                 <hr />
                 <div class="row">
@@ -79,7 +107,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <b:commandButton value="Agregar Trámite" action="#{tramiteBean.addTramite()}" look="primary" style="font-size: 2rem" />
+                            <b:commandButton value="Obtener Requisitos" action="#{tramiteBean.addTramite()}" look="primary" style="font-size: 2rem" />
                         </div>
                     </div>
                 </div>

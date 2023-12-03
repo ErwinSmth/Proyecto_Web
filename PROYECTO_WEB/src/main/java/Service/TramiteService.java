@@ -7,6 +7,7 @@ package Service;
 import dao.TramiteDaoImpl;
 import java.util.List;
 import model.Persona;
+import model.Requisito;
 import model.Tipo_Tramite;
 import model.Tramite;
 
@@ -62,6 +63,27 @@ public class TramiteService {
 
         TramiteDaoImpl tramiteDao = new TramiteDaoImpl();
         return tramiteDao.getlistaTiTra();
+
+    }
+
+    public int LastID() {
+
+        TramiteDaoImpl tramiteDao = new TramiteDaoImpl();
+        return tramiteDao.getLastID();
+
+    }
+
+    public int addRequisito(int idtramite, String nombre_TT) {
+
+        TramiteDaoImpl tramiteDao = new TramiteDaoImpl();
+        return tramiteDao.addRequisito_Tramite(idtramite, nombre_TT);
+
+    }
+
+    public List<Requisito> getRequisitos(int idtramite, String nombreTT) {
+
+        TramiteDaoImpl tramiteDao = new TramiteDaoImpl();
+        return tramiteDao.getRequisitosByTipoTramite(idtramite, nombreTT);
 
     }
 

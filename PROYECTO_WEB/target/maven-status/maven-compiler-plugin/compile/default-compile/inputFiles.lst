@@ -7,6 +7,7 @@ C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\model\Rol.java
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\com\mycompany\proyecto_web\JAXRSConfiguration.java
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\model\Tramite.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\controller\RequisitoBean.java
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\Service\Tipo_TramiteService.java
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\model\Usuario.java
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\util\DataSource.java
@@ -20,6 +21,9 @@ C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\model\Persona.java
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\Service\TramiteService.java
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\controller\UsuarioBean.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\dao\RequisitoDAOImpl.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\model\Requisito.java
+C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\Service\RequisitoService.java
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\controller\Tipo_TramiteBean.java
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\dao\UsuarioDAOImpl.java
 C:\Users\DAVID\OneDrive - Universidad Tecnologica del Peru\Documents\UTP\6 Ciclo\Desarrollo Web Integrado\Proyecto\Proyecto_Web\PROYECTO_WEB\src\main\java\model\Anexo.java

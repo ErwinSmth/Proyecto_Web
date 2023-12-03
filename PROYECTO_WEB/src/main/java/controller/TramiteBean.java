@@ -5,13 +5,13 @@
 package controller;
 
 import Service.TramiteService;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import model.Persona;
+import model.Requisito;
 import model.Tipo_Tramite;
 import model.Tramite;
 import model.Usuario;
@@ -31,6 +31,7 @@ public class TramiteBean{
     private TramiteService traServ;
     private Tramite tramite;
     private Tipo_Tramite tipoTramiteSeleccionado;
+    private List<Requisito> requisitos;
 
     @PostConstruct
     public void init() {
@@ -76,6 +77,14 @@ public class TramiteBean{
         this.tramite = tramite;
     }
 
+    public List<Requisito> getRequisitos() {
+        return requisitos;
+    }
+
+    public void setRequisitos(List<Requisito> requisitos) {
+        this.requisitos = requisitos;
+    }
+
     public void addTramite() {
 
         if (tipoTramiteSeleccionado == null) {
@@ -88,7 +97,19 @@ public class TramiteBean{
             int resultado = this.traServ.add(newTramite);
 
             if (resultado == 1) {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("Registro de Tramite.xhtml");
+                
+                //Obtenemos el ultimo id
+                int id = traServ.LastID();
+                int resultadoRequisito = traServ.addRequisito(id, tipoTramiteSeleccionado.getNom_TT());
+                
+                if (resultadoRequisito == 1) {
+                    
+                    //Obtenemos los requisitos
+                    this.requisitos = traServ.getRequisitos(id, tipoTramiteSeleccionado.getNom_TT());
+                    
+                }
+                
+//                FacesContext.getCurrentInstance().getExternalContext().redirect("Registro de Tramite.xhtml");
             } else {
             }
         } catch (Exception e) {

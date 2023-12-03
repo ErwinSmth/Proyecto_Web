@@ -1,15 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+    <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-5">
+                        <ui:repeat value="#{sessionScope.paginasPorRol}" var="pagina">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#{pagina.nombrePagina}" style="color: white">
+                                    #{pagina.nombrePagina.substring(0, pagina.nombrePagina.lastIndexOf('.'))}
+                                </a>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container mt-4">
+            <div class="container mt-4">
+                <h2>Listado de Requisitos</h2>
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Tipo de Trámite</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat value="#{requisitoBean.getListado()}" var="requisito">
+                            <tr>
+                                <td>#{requisito.nom_Req}</td>
+                                <td>#{requisito.tipo_tramite.nom_TT}</td>
+                                <td>#{requisito.activo == 1 ? 'Activo' : (requisito.activo == 2 ? 'Inactivo' : '')}</td>
+                                <td>#{requisito.descripcion}</td>
+                                <td>
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                                        <h:form>
+                                            <h:commandButton class="btn btn-danger btn-custom" value="Eliminar" action="#{requisitoBean.delete(requisito)}"/>
+                                            <h:commandButton class="btn btn-danger btn-custom" value="Reactivar" action="#{requisitoBean.Reactivar(requisito)}"/>
+                                        </h:form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Agregar Nuevo Requisito</h2>
+            <h:form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <b:selectOneMenu value="#{requisitoBean.requisito.tipo_tramite}">
+                                <f:selectItem itemLabel="-- Seleccionar Tipo de Trámite --" itemValue="" />
+                                <f:selectItems value="#{requisitoBean.listaTipos}" var="tipo" itemLabel="#{tipo.nom_TT}" itemValue="#{tipo}" />
+                            </b:selectOneMenu>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="nombreReq" class="form-label">Nombre:</label>
+                    <h:inputText id="nombreReq" value="#{requisitoBean.requisito.nom_Req}" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción:</label>
+                    <h:inputTextarea id="descripcion" value="#{requisitoBean.requisito.descripcion}" class="form-control"/>
+                </div>
+
+                <h:commandButton value="Agregar" action="#{requisitoBean.add()}" class="btn btn-primary"/>
+            </h:form>
+        </div>
+    </h:body>
 </html>
