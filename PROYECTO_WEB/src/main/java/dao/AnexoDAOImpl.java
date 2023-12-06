@@ -5,7 +5,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -26,7 +25,7 @@ public class AnexoDAOImpl implements IDAO<Anexo> {
     @Override
     public int add(Anexo objeto) {
 
-        String query = "Insert into Anexo (id_tramite, titulo_documento, Descripcion, fecha_registro) values (?, ?, ?, ?)";
+        String query = "Insert into Anexo (id_tramite, titulo_documento, Descripcion, fecha_registro, ubicacion_archivo) values (?, ?, ?, ?, ?)";
 
         try {
 
@@ -40,9 +39,12 @@ public class AnexoDAOImpl implements IDAO<Anexo> {
             java.sql.Date fechaRegistro = java.sql.Date.valueOf(objeto.getFecha_registro());
             ps.setDate(4, fechaRegistro);
 
+            ps.setString(5, objeto.getUbicacion_archivo());
+            
             int exito = ps.executeUpdate();
 
             if (exito > 0) {
+
                 conn.commit();
                 int idTramite = objeto.getTramite().getId_tramite();
                 TramiteDaoImpl tramiteDao = new TramiteDaoImpl();

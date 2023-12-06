@@ -35,7 +35,7 @@ public class UsuarioService {
         return usDao.getListado();
     }
 
-    public Usuario getUsByID(String login) {
+    public Persona getUsByID(String login) {
         UsuarioDAOImpl usDao = new UsuarioDAOImpl();
         return usDao.getByID(login);
     }
@@ -54,19 +54,32 @@ public class UsuarioService {
 
     }
 
-    
     public int Registro(Persona persona) {
-        
+
         UsuarioDAOImpl usDao = new UsuarioDAOImpl();
         return usDao.registro(persona);
-        
+
     }
-    
-    public List<Tipo_Documento> getTiposDoc(){
-        
+
+    public List<Tipo_Documento> getTiposDoc() {
+
         UsuarioDAOImpl usDao = new UsuarioDAOImpl();
         return usDao.getTipoDocu();
-        
+
+    }
+
+    public List<Persona> getInformacion() {
+
+        UsuarioDAOImpl usDao = new UsuarioDAOImpl();
+        return usDao.getInformacion();
+
+    }
+
+    public int reactivar(Usuario objeto) {
+
+        UsuarioDAOImpl usDao = new UsuarioDAOImpl();
+        return usDao.reactivar(objeto);
+
     }
 
 }

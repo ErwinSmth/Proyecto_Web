@@ -17,20 +17,23 @@ public class Anexo {
     private String titulo;
     private String descripcion;
     private LocalDate fecha_registro;
+    private String  ubicacion_archivo;
 
-    public Anexo(int id_documento, Tramite tramite, String titulo, String descripcion, LocalDate fecha_registro) {
+    public Anexo(int id_documento, Tramite tramite, String titulo, String descripcion, LocalDate fecha_registro, String ubicacion_archivo) {
         this.id_documento = id_documento;
         this.tramite = tramite;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha_registro = fecha_registro;
+        this.ubicacion_archivo = ubicacion_archivo;
     }
 
-    public Anexo(Tramite tramite, String titulo, String descripcion, LocalDate fecha_registro) {
+    public Anexo(Tramite tramite, String titulo, String descripcion, LocalDate fecha_registro, String ubicacion_archivo) {
         this.tramite = tramite;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha_registro = fecha_registro;
+        this.ubicacion_archivo = ubicacion_archivo;
     }
 
     public Anexo() {
@@ -77,11 +80,20 @@ public class Anexo {
         this.fecha_registro = fecha_registro;
     }
 
+    public String getUbicacion_archivo() {
+        return ubicacion_archivo;
+    }
+
+    public void setUbicacion_archivo(String archivo) {
+        this.ubicacion_archivo = ubicacion_archivo;
+    }
+
     @Override
     public String toString() {
-        return "Anexo{" + "id_documento=" + id_documento + ", tramite=" + tramite + ", titulo=" + titulo + ", descripcion=" + descripcion + ", fecha_registro=" + fecha_registro + '}';
+        return "Anexo{" + "id_documento=" + id_documento + ", tramite=" + tramite + ", titulo=" + titulo + ", descripcion=" + descripcion + ", fecha_registro=" + fecha_registro + ", ubicacion_archivo=" + ubicacion_archivo + '}';
     }
     
     
     
+
 }

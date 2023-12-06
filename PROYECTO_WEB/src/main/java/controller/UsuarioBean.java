@@ -6,6 +6,7 @@ import javax.faces.bean.*;
 
 import Service.UsuarioService;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -22,6 +23,8 @@ public class UsuarioBean {
     private Persona persona;
     private UsuarioService usService;
     private List<Tipo_Documento> listaDoc;
+    private List<Persona> listado;
+    private String filtrado;
 
     @PostConstruct
     public void init() {
@@ -29,7 +32,7 @@ public class UsuarioBean {
         this.us = new Usuario();
         this.persona = new Persona();
         this.listaDoc = usService.getTiposDoc();
-        System.out.println(listaDoc);
+        this.listado = usService.getInformacion();
     }
 
     public Usuario getUs() {
@@ -60,6 +63,24 @@ public class UsuarioBean {
         this.persona = persona;
     }
 
+    public List<Persona> getListado() {
+        return listado;
+    }
+
+    public void setListado(List<Persona> listado) {
+        this.listado = listado;
+    }
+
+    public String getFiltrado() {
+        return filtrado;
+    }
+
+    public void setFiltrado(String filtrado) {
+        this.filtrado = filtrado;
+    }
+    
+    
+
     public void addUsuario() throws IOException {
         Usuario newUs = new Usuario();
         newUs.setLogin(us.getLogin());
@@ -83,7 +104,7 @@ public class UsuarioBean {
         return usService.delete(us);
     }
 
-    public Usuario getByID(String login) {
+    public Persona getByID(String login) {
         return usService.getUsByID(login);
     }
 
@@ -133,6 +154,28 @@ public class UsuarioBean {
 
     public void redireccionar() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
+    }
+    
+    public void reactivar(Usuario us){
+        
+        if (usService.reactivar(us) == 1) {
+        }
+    }
+    
+    public void filtar(){
+        
+        if (filtrado != null && !filtrado.isEmpty()) {
+            List<Persona> filtrados = new ArrayList<>();
+            
+            for (Persona persona : listado) {
+                if (persona.getUs().getLogin().equals(filtrado)) {
+                    filtrados.add(persona);
+                }
+            }
+        } else {
+            listado = usService.getInformacion();
+        }
+        
     }
 
 }

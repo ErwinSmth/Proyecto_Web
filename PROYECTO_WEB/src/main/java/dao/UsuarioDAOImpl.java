@@ -206,7 +206,27 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
     @Override
     public int delete(Usuario objeto) {
 
-        String query = "Delete from usuario Where login = ?";
+        String query = "Update usuario set estado = 'Inactivo'  Where login = ?";
+
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, objeto.getLogin());
+
+            int exito = ps.executeUpdate();
+
+            if (exito > 0) {
+                return 1;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 2;
+    }
+
+    public int reactivar(Usuario objeto) {
+
+        String query = "Update usuario set estado = 'Activo' where login = ?";
 
         try ( PreparedStatement ps = conn.prepareStatement(query)) {
 
@@ -252,10 +272,31 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
         return listado;
     }
 
-    public Usuario getByID(String login) {
+    public Persona getByID(String login) {
 
-        String query = "Select * from usuario where login = ?";
-        Usuario us = new Usuario();
+        String query = "SELECT \n"
+                + "    p.id_persona,\n"
+                + "    p.prim_nomb,\n"
+                + "    p.seg_nomb,\n"
+                + "    p.ape_pater,\n"
+                + "    p.ape_mater,\n"
+                + "    td.nom_TD as tipo_documento,\n"
+                + "    p.num_doc,\n"
+                + "    p.correo,\n"
+                + "    u.login,\n"
+                + "    u.estado,\n"
+                + "    r.nombre as rol\n"
+                + "FROM \n"
+                + "    Persona p\n"
+                + "JOIN \n"
+                + "    Usuario u ON p.login = u.login\n"
+                + "JOIN \n"
+                + "    Rol r ON u.idrol = r.idrol\n"
+                + "JOIN \n"
+                + "    Tipo_Documento td ON p.nom_TD = td.nom_TD\n"
+                + "WHERE\n"
+                + "    u.login = ?";
+        Persona persona = new Persona();
 
         try ( PreparedStatement ps = conn.prepareStatement(query)) {
 
@@ -264,16 +305,31 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
 
             while (rs.next()) {
 
-                us.setClave(rs.getString("clave"));
+                persona.setPri_nombre(rs.getString("prim_nomb"));
+                persona.setSeg_nombre(rs.getString("seg_nomb"));
+                persona.setApe_paterno(rs.getString("ape_pater"));
+                persona.setApe_materno(rs.getString("ape_mater"));
+
+                Tipo_Documento tipoDoc = new Tipo_Documento(rs.getString("tipo_documento"));
+                persona.setTipoDoc(tipoDoc);
+                persona.setNum_Doc(rs.getString("num_doc"));
+                persona.setCorreo(rs.getString("correo"));
+
+                Usuario us = new Usuario();
+                us.setLogin(rs.getString("login"));
                 us.setEstado(rs.getString("estado"));
-                us.setRol(new Rol(rs.getInt("idrol")));
+
+                Rol rol = new Rol(rs.getString("rol"));
+                us.setRol(rol);
+
+                persona.setUs(us);
 
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return us;
+        return persona;
     }
 
     public List<Pagina> redireccionas(int idrol) {
@@ -324,19 +380,78 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
         return paginas;
     }
 
-    public static void main(String[] args) {
+    //Metodo a ser usado en una api
+    public List<Persona> getInformacion() {
 
-        Persona persona = new Persona("Robert", "Pierre", "Carrasco", "Mariñas", new Tipo_Documento("DNI"), "12345678", "robert@gmail.com",
-                new Usuario("setBert", "123", "'Activo'", new Rol(3)));
+        String query = "SELECT \n"
+                + "    p.id_persona,\n"
+                + "    p.prim_nomb,\n"
+                + "    p.seg_nomb,\n"
+                + "    p.ape_pater,\n"
+                + "    p.ape_mater,\n"
+                + "    td.nom_TD as tipo_documento,\n"
+                + "    p.num_doc,\n"
+                + "    p.correo,\n"
+                + "    u.login,\n"
+                + "    u.estado,\n"
+                + "    r.nombre as rol\n"
+                + "FROM \n"
+                + "    Persona p\n"
+                + "JOIN \n"
+                + "    Usuario u ON p.login = u.login\n"
+                + "JOIN \n"
+                + "    Rol r ON u.idrol = r.idrol\n"
+                + "JOIN \n"
+                + "    Tipo_Documento td ON p.nom_TD = td.nom_TD;";
+        List<Persona> lista = new ArrayList<>();
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
 
-        UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
-        int resultado = usuarioDAO.registro(persona);
+            ResultSet rs = ps.executeQuery();
 
-        if (resultado == 1) {
-            System.out.println("Se ha insertado correctamente.");
-        } else {
-            System.out.println("Ha ocurrido un problema al insertar.");
+            while (rs.next()) {
+
+                Persona persona = new Persona();
+                persona.setPri_nombre(rs.getString("prim_nomb"));
+                persona.setSeg_nombre(rs.getString("seg_nomb"));
+                persona.setApe_paterno(rs.getString("ape_pater"));
+                persona.setApe_materno(rs.getString("ape_mater"));
+
+                Tipo_Documento tipoDoc = new Tipo_Documento(rs.getString("tipo_documento"));
+                persona.setTipoDoc(tipoDoc);
+                persona.setNum_Doc(rs.getString("num_doc"));
+                persona.setCorreo(rs.getString("correo"));
+
+                Usuario us = new Usuario();
+                us.setLogin(rs.getString("login"));
+                us.setEstado(rs.getString("estado"));
+
+                Rol rol = new Rol(rs.getString("rol"));
+                us.setRol(rol);
+
+                persona.setUs(us);
+
+                lista.add(persona);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return lista;
     }
 
+//    public static void main(String[] args) {
+//
+//        Persona persona = new Persona("Robert", "Pierre", "Carrasco", "Mariñas", new Tipo_Documento("DNI"), "12345678", "robert@gmail.com",
+//                new Usuario("setBert", "123", "'Activo'", new Rol(3)));
+//
+//        UsuarioDAOImpl usuarioDAO = new UsuarioDAOImpl();
+//        int resultado = usuarioDAO.registro(persona);
+//
+//        if (resultado == 1) {
+//            System.out.println("Se ha insertado correctamente.");
+//        } else {
+//            System.out.println("Ha ocurrido un problema al insertar.");
+//        }
+//    }
 }

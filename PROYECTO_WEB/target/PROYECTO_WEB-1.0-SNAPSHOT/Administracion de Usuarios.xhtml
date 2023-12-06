@@ -1,15 +1,88 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <h:head>
+        <title>Información de Usuarios</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+              integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+              crossorigin="anonymous"/>
+    </h:head>
+
+    <h:body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-5">
+                        <ui:repeat value="#{sessionScope.paginasPorRol}" var="pagina">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#{pagina.nombrePagina}" style="color: white">
+                                    #{pagina.nombrePagina.substring(0, pagina.nombrePagina.lastIndexOf('.'))}
+                                </a>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container mt-4">
+            <h1>Información de Usuarios</h1>
+            <b:dataTable id="userTable" value="#{userBean.listado}" var="persona"
+                         striped="true">
+
+                <b:dataTableColumn label="Nombres">
+                    #{persona.pri_nombre} #{persona.seg_nombre}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Apellidos">
+                    #{persona.ape_paterno} #{persona.ape_materno}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Tipo Documento">
+                    #{persona.tipoDoc.nombre_TD}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Número de Documento">
+                    #{persona.num_Doc}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Correo">
+                    #{persona.correo}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Login">
+                    #{persona.us.login}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Rol">
+                    #{persona.us.rol.nombre}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Estado">
+                    #{persona.us.estado}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Acciones">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <h:form>
+                            <h:commandButton class="btn btn-danger btn-custom" value="Eliminar"
+                                             action="#{userBean.deleteUsuario(persona.us)}">
+                            </h:commandButton>
+                            <h:commandButton class="btn btn-danger btn-custom" value="Reactivar"
+                                             action="#{userBean.reactivar(persona.us)}">
+                            </h:commandButton>
+                        </h:form>
+                    </div>
+                </b:dataTableColumn>
+            </b:dataTable>
+        </div>
+    </h:body>
+
 </html>
