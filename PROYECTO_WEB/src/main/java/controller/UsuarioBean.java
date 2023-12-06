@@ -24,7 +24,6 @@ public class UsuarioBean {
     private UsuarioService usService;
     private List<Tipo_Documento> listaDoc;
     private List<Persona> listado;
-    private String filtrado;
 
     @PostConstruct
     public void init() {
@@ -70,17 +69,7 @@ public class UsuarioBean {
     public void setListado(List<Persona> listado) {
         this.listado = listado;
     }
-
-    public String getFiltrado() {
-        return filtrado;
-    }
-
-    public void setFiltrado(String filtrado) {
-        this.filtrado = filtrado;
-    }
     
-    
-
     public void addUsuario() throws IOException {
         Usuario newUs = new Usuario();
         newUs.setLogin(us.getLogin());
@@ -161,21 +150,4 @@ public class UsuarioBean {
         if (usService.reactivar(us) == 1) {
         }
     }
-    
-    public void filtar(){
-        
-        if (filtrado != null && !filtrado.isEmpty()) {
-            List<Persona> filtrados = new ArrayList<>();
-            
-            for (Persona persona : listado) {
-                if (persona.getUs().getLogin().equals(filtrado)) {
-                    filtrados.add(persona);
-                }
-            }
-        } else {
-            listado = usService.getInformacion();
-        }
-        
-    }
-
 }

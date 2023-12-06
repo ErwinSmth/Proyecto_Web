@@ -44,7 +44,7 @@ public class OpcionesDaoImpl implements IDAO<Opciones> {
     @Override
     public int update(Opciones op) {
         PreparedStatement pst = null;
-        String sql = "UPDATE opcion SET pagina = ?, estado = ?, descripcion = ?, grupo = ? WHERE idOpcion = ?";
+        String sql = "UPDATE opcion SET pagina = ?, estado = ?, descripcion = ?, grupo = ? WHERE id_opcion = ?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, op.getDocumento());
@@ -70,7 +70,7 @@ public class OpcionesDaoImpl implements IDAO<Opciones> {
     @Override
     public int delete(Opciones op) {
         PreparedStatement pst = null;
-        String sql = "DELETE FROM opcion WHERE idOpcion = ?";
+        String sql = "DELETE FROM opcion WHERE id_opcion = ?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1, op.getId());
@@ -90,7 +90,7 @@ public class OpcionesDaoImpl implements IDAO<Opciones> {
 
     @Override
     public List<Opciones> getListado() {
-        String query = "SELECT*FROM opcion";
+        String query = "SELECT * FROM opcion";
         List<Opciones> lista = new ArrayList<>();
         try {
             PreparedStatement stm = obtenerConexion().prepareStatement(query);
@@ -98,7 +98,7 @@ public class OpcionesDaoImpl implements IDAO<Opciones> {
 
             while (rs.next()) {
                 lista.add(new Opciones(
-                        rs.getInt("idOpcion"),
+                        rs.getInt("id_opcion"),
                         rs.getString("pagina"),
                         rs.getString("estado"),
                         rs.getString("descripcion"),
@@ -113,7 +113,7 @@ public class OpcionesDaoImpl implements IDAO<Opciones> {
 
     public Opciones getByID(int id) {
 
-        String query = "SELECT*FROM opcion WHERE idOpcion=?";
+        String query = "SELECT*FROM opcion WHERE id_opcion=?";
         Opciones op = new Opciones();
         try {
             PreparedStatement stm = obtenerConexion().prepareStatement(query);
@@ -121,7 +121,7 @@ public class OpcionesDaoImpl implements IDAO<Opciones> {
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
-                op.setId(rs.getInt("idOpcion"));
+                op.setId(rs.getInt("id_opcion"));
                 op.setDocumento(rs.getString("pagina"));
                 op.setEstado(rs.getString("estado"));
                 op.setDescripcion(rs.getString("descripcion"));

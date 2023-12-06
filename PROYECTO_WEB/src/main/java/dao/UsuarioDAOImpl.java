@@ -336,8 +336,8 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
 
         List<Pagina> paginas = new ArrayList<>();
         String query = "SELECT DISTINCT o.pagina "
-                + "FROM Opcion o "
-                + "INNER JOIN Permiso p ON o.idopcion = p.idOpcion "
+                + "FROM opcion o "
+                + "INNER JOIN permiso p ON o.id_opcion = p.id_opcion "
                 + "WHERE p.idrol = ?";
 
         try ( PreparedStatement ps = conn.prepareStatement(query)) {

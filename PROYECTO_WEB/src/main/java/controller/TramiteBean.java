@@ -148,29 +148,4 @@ public class TramiteBean {
         }
     }
 
-//    public void SubirArchivo(FileUploadEvent event) {
-//        UploadedFile archivo = event.getFile();
-//        System.out.println(anexo.toString());
-//        String ruta = "./Documentos/hola.txt";
-//        try {
-//            
-//            anexo.setTitulo("hola");
-//            archivoServ.guardarArchivo(archivo.getInputStream(), ruta);
-//            anexo.setTramite(tramite);
-//            anexo.setFecha_registro(LocalDate.now());
-//            anexo.setUbicacion_archivo( );
-//
-//            int resultado = anexoServ.add(anexo);
-//
-//            if (resultado == 1) {
-//                System.out.println("Subido");
-//            } else {
-//                System.out.println("Ocurrio un error al intentar subir");
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 }
