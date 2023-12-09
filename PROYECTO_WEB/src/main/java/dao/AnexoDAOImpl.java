@@ -25,7 +25,7 @@ public class AnexoDAOImpl implements IDAO<Anexo> {
     @Override
     public int add(Anexo objeto) {
 
-        String query = "Insert into Anexo (id_tramite, titulo_documento, Descripcion, fecha_registro, ubicacion_archivo) values (?, ?, ?, ?, ?)";
+        String query = "Insert into Anexo (id_tramite, Descripcion, fecha_registro, ubicacion_archivo) values (?, ?, ?, ?)";
 
         try {
 
@@ -33,13 +33,12 @@ public class AnexoDAOImpl implements IDAO<Anexo> {
 
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, objeto.getTramite().getId_tramite());
-            ps.setString(2, objeto.getTitulo());
-            ps.setString(3, objeto.getDescripcion());
+            ps.setString(2, objeto.getDescripcion());
 
             java.sql.Date fechaRegistro = java.sql.Date.valueOf(objeto.getFecha_registro());
-            ps.setDate(4, fechaRegistro);
+            ps.setDate(3, fechaRegistro);
 
-            ps.setString(5, objeto.getUbicacion_archivo());
+            ps.setString(4, objeto.getUbicacion_archivo());
             
             int exito = ps.executeUpdate();
 
@@ -63,15 +62,14 @@ public class AnexoDAOImpl implements IDAO<Anexo> {
     @Override
     public int update(Anexo objeto) {
 
-        String query = "update anexo set titulo_documento = ?, Descripcion = ? where id_documento = ?";
+        String query = "update anexo set Descripcion = ? where id_documento = ?";
 
         try {
 
             conn.setAutoCommit(false);
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, objeto.getTitulo());
-            ps.setString(2, objeto.getDescripcion());
-            ps.setInt(3, objeto.getId_documento());
+            ps.setString(1, objeto.getDescripcion());
+            ps.setInt(2, objeto.getId_documento());
 
             int exito = ps.executeUpdate();
 
@@ -132,8 +130,6 @@ public class AnexoDAOImpl implements IDAO<Anexo> {
                 Tramite tramite = new Tramite();
                 tramite.setId_tramite(rs.getInt("id_tramite"));
                 anexo.setTramite(tramite);
-
-                anexo.setTitulo(rs.getString("titulo_documento"));
                 anexo.setDescripcion(rs.getString("Descripcion"));
 
                 java.sql.Date fechaSQL = rs.getDate("fecha_registro");
@@ -171,8 +167,7 @@ public class AnexoDAOImpl implements IDAO<Anexo> {
                 tramite.setId_tramite(rs.getInt("id_tramite"));
 
                 anexo.setTramite(tramite);
-
-                anexo.setTitulo(rs.getString("titulo_documento"));
+                
                 anexo.setDescripcion(rs.getString("Descripcion"));
 
                 java.sql.Date fechaSQL = rs.getDate("fecha_registro");

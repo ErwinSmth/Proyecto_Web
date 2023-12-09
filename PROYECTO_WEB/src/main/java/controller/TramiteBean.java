@@ -5,12 +5,10 @@
 package controller;
 
 import Service.AnexoService;
-import Service.ArchivoService;
+import Service.ArchivoHelper;
 import Service.TramiteService;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -23,7 +21,6 @@ import model.Tipo_Tramite;
 import model.Tramite;
 import model.Usuario;
 import org.primefaces.model.file.UploadedFile;
-import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -31,7 +28,7 @@ import org.primefaces.event.FileUploadEvent;
  */
 @ManagedBean(name = "tramiteBean")
 @RequestScoped
-public class TramiteBean {
+public class TramiteBean{
 
     private static final int ROL_INTERESADO = 1;
 
@@ -41,9 +38,9 @@ public class TramiteBean {
     private Tramite tramite;
     private Tipo_Tramite tipoTramiteSeleccionado;
     private List<Requisito> requisitos;
-    private ArchivoService archivoServ;
     private AnexoService anexoServ;
     private Anexo anexo;
+    private UploadedFile archivoSubido;
 
     @PostConstruct
     public void init() {
@@ -55,7 +52,6 @@ public class TramiteBean {
         this.persona = traServ.getPersonaByUs(user.getLogin());
         this.listado = traServ.getListaTra();
         this.tramite = new Tramite();
-        this.archivoServ = new ArchivoService();
         this.anexoServ = new AnexoService();
         this.anexo = new Anexo();
     }
@@ -100,14 +96,6 @@ public class TramiteBean {
         this.requisitos = requisitos;
     }
 
-    public ArchivoService getArchivoServ() {
-        return archivoServ;
-    }
-
-    public void setArchivoServ(ArchivoService archivoServ) {
-        this.archivoServ = archivoServ;
-    }
-
     public Anexo getAnexo() {
         return anexo;
     }
@@ -115,6 +103,16 @@ public class TramiteBean {
     public void setAnexo(Anexo anexo) {
         this.anexo = anexo;
     }
+
+    public UploadedFile getArchivoSubido() {
+        return archivoSubido;
+    }
+
+    public void setArchivoSubido(UploadedFile archivoSubido) {
+        this.archivoSubido = archivoSubido;
+    }
+    
+    
 
     public void addTramite() {
 
@@ -145,6 +143,38 @@ public class TramiteBean {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
+        }
+    }
+    
+    public void subir(){
+        if (archivoSubido != null) {
+            try {
+                
+                 ArchivoHelper upload = new ArchivoHelper();
+                 String nombreArchivo = archivoSubido.getFileName();
+                 InputStream input = archivoSubido.getInputStream();
+                 
+                 String ruta = upload.subirArchivo(input, nombreArchivo);
+                 
+                 Tramite tra = new Tramite();
+                 tra.setId_tramite(traServ.LastID());
+                 
+                 anexo.setTramite(tra);
+                 anexo.setFecha_registro(LocalDate.now());
+                 anexo.setDescripcion("");
+                 anexo.setUbicacion_archivo(ruta);
+                 
+                 int resultado = anexoServ.add(anexo);
+                 
+                 if (resultado == 1) {
+                     System.out.println("Archivo subido");
+                } else {
+                     System.out.println("Ocurrio un problema");
+                 }
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -14,6 +14,7 @@ Service\AnexoService.class
 controller\UsuarioBean.class
 dao\UsuarioDAOImpl.class
 Service\ArchivoService.class
+Service\ArchivoHelper.class
 model\Pagina.class
 dao\TramiteDaoImpl.class
 dao\IDAO.class
