@@ -28,23 +28,30 @@ public class TramiteDaoImpl implements IDAO<Tramite> {
     @Override
     public int add(Tramite objeto) {
 
-        String query = "Insert into tramite (id_persona, Nom_TT, fecha_inicio) values (?, ?, ?)";
+        String query = "Insert into tramite (id_persona, Nom_TT, fecha_inicio) values (?,?,?)";
+        int idTramite = -1;
         try {
 
             conn.setAutoCommit(false);
 
-            PreparedStatement ps = conn.prepareStatement(query);
+            PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             ps.setInt(1, objeto.getPersona().getIdpersona());
             ps.setString(2, objeto.getTipoTramite().getNom_TT());
 
             java.sql.Date fechainicio = java.sql.Date.valueOf(objeto.getFecha_inicio());
             ps.setDate(3, fechainicio); //aqui se establecera la fecha automaticamente en la que se registro dicho tramite
+            
 
             int exito = ps.executeUpdate();
 
             if (exito > 0) {
                 conn.commit();
+                
+                ResultSet key = ps.getGeneratedKeys();
+                if (key.next()) {
+                    idTramite = key.getInt(1); //obtenemos el id generado
+                }
                 return 1;
             } else {
                 conn.rollback();
@@ -54,7 +61,7 @@ public class TramiteDaoImpl implements IDAO<Tramite> {
             e.printStackTrace();
         }
 
-        return 2;
+        return idTramite;
 
     }
 
@@ -286,7 +293,7 @@ public class TramiteDaoImpl implements IDAO<Tramite> {
 
     //Metodo para insertar en la tabla requisito_tramite_estado
     //posible metodo a usarse en api
-    public int addRequisito_Tramite(int id_tramite, String nombre_TT) {
+    public int addRequisito_Tramite(int id_tramite, Tipo_Tramite tipoTramite) {
 
         String query = "INSERT INTO requisito_tramite_estado (id_tramite, Nom_TT, Nom_Req, estado_requisito)\n"
                 + "SELECT\n"
@@ -302,7 +309,7 @@ public class TramiteDaoImpl implements IDAO<Tramite> {
 
             conn.setAutoCommit(false);
             ps.setInt(1, id_tramite);
-            ps.setString(2, nombre_TT);
+            ps.setString(2, tipoTramite.getNom_TT());
 
             int exito = ps.executeUpdate();
 

@@ -6,6 +6,7 @@ package controller;
 
 import Service.AnexoService;
 import Service.ArchivoHelper;
+import Service.RequisitoService;
 import Service.TramiteService;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +29,7 @@ import org.primefaces.model.file.UploadedFile;
  */
 @ManagedBean(name = "tramiteBean")
 @RequestScoped
-public class TramiteBean{
+public class TramiteBean {
 
     private static final int ROL_INTERESADO = 1;
 
@@ -41,6 +42,7 @@ public class TramiteBean{
     private AnexoService anexoServ;
     private Anexo anexo;
     private UploadedFile archivoSubido;
+    private RequisitoService requiServ;
 
     @PostConstruct
     public void init() {
@@ -54,6 +56,9 @@ public class TramiteBean{
         this.tramite = new Tramite();
         this.anexoServ = new AnexoService();
         this.anexo = new Anexo();
+        this.requiServ = new RequisitoService();
+        this.tramite = new Tramite();
+
     }
 
     public Tipo_Tramite getTipoTramiteSeleccionado() {
@@ -111,67 +116,57 @@ public class TramiteBean{
     public void setArchivoSubido(UploadedFile archivoSubido) {
         this.archivoSubido = archivoSubido;
     }
-    
-    
 
-    public void addTramite() {
+    public void obtenerRequisitos() {
 
         if (tipoTramiteSeleccionado == null) {
             return; // Evitar agregar un trámite si el tipo de trámite es nulo
         }
-
         try {
-            Tramite newTramite = new Tramite(new Persona(persona.getIdpersona()), tipoTramiteSeleccionado);
-            newTramite.setFecha_inicio(LocalDate.now());
-            int resultado = this.traServ.add(newTramite);
-
-            if (resultado == 1) {
-
-                //Obtenemos el ultimo id
-                int id = traServ.LastID();
-                int resultadoRequisito = traServ.addRequisito(id, tipoTramiteSeleccionado.getNom_TT());
-
-                if (resultadoRequisito == 1) {
-
-                    //Obtenemos los requisitos
-                    this.requisitos = traServ.getRequisitos(id, tipoTramiteSeleccionado.getNom_TT());
-
-                }
-
-            } else {
-            }
+            this.requisitos = requiServ.getRequisitosByTiTramite(tipoTramiteSeleccionado);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
-    
-    public void subir(){
+
+    public void subir() {
         if (archivoSubido != null) {
             try {
-                
-                 ArchivoHelper upload = new ArchivoHelper();
-                 String nombreArchivo = archivoSubido.getFileName();
-                 InputStream input = archivoSubido.getInputStream();
-                 
-                 String ruta = upload.subirArchivo(input, nombreArchivo);
-                 
-                 Tramite tra = new Tramite();
-                 tra.setId_tramite(traServ.LastID());
-                 
-                 anexo.setTramite(tra);
-                 anexo.setFecha_registro(LocalDate.now());
-                 anexo.setDescripcion("");
-                 anexo.setUbicacion_archivo(ruta);
-                 
-                 int resultado = anexoServ.add(anexo);
-                 
-                 if (resultado == 1) {
-                     System.out.println("Archivo subido");
-                } else {
-                     System.out.println("Ocurrio un problema");
-                 }
-                
+
+                //Insercion del tramite
+                this.tramite.setPersona(this.persona);
+                this.tramite.setTipoTramite(this.tipoTramiteSeleccionado);
+                this.tramite.setFecha_inicio(LocalDate.now());
+
+                int resultadoTRA = traServ.add(tramite);
+
+                if (resultadoTRA != -1) {
+                    ArchivoHelper upload = new ArchivoHelper();
+                    String nombreArchivo = archivoSubido.getFileName();
+                    InputStream input = archivoSubido.getInputStream();
+
+                    String ruta = upload.subirArchivo(input, nombreArchivo);
+
+                    Tramite tra = new Tramite();
+                    tra.setId_tramite(traServ.LastID());
+
+                    anexo.setTramite(tra);
+                    anexo.setFecha_registro(LocalDate.now());
+                    anexo.setDescripcion("");
+                    anexo.setUbicacion_archivo(ruta);
+
+                    int resultado = anexoServ.add(anexo);
+
+                    if (resultado == 1) {
+                        int resultadorequi = traServ.addRequisito(resultadoTRA, this.tipoTramiteSeleccionado);
+
+                        if (resultadorequi == 1) {
+                            FacesContext.getCurrentInstance().getExternalContext().redirect("Seguimiento de Tramite.xhtml");
+                        }
+                    }
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

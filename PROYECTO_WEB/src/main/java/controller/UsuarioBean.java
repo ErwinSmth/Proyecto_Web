@@ -6,7 +6,6 @@ import javax.faces.bean.*;
 
 import Service.UsuarioService;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

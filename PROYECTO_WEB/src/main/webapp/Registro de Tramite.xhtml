@@ -47,7 +47,7 @@
                 </div>
             </div>
         </nav>
-        <h:form >
+        <h:form enctype="multipart/form-data">
             <div class="container mt-10">
                 <div class="row">
                     <div class="col-md-4">
@@ -74,12 +74,11 @@
                         <h:panelGroup rendered="#{not empty tramiteBean.requisitos}">
                             <h1>Requisitos del Trámite</h1>
                             <div class="table-responsive">
-                                <table class="table table-bordered" style="font-size: 18px; max-width: 1500px;">
+                                <table  class="table table-bordered" style="font-size: 18px; max-width: 1500px;">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>Nombre del Requisito</th>
                                             <th>Descripción</th>
-                                            <th>Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -87,9 +86,6 @@
                                             <tr>
                                                 <td>#{req.nom_Req}</td>
                                                 <td>#{req.descripcion}</td>
-                                                <td>
-                                                    <h:outputText value="#{req.estado == 1 ? 'Por Completar' : req.estado}" />
-                                                </td>
                                             </tr>
                                         </ui:repeat>
                                     </tbody>
@@ -103,7 +99,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <b:selectOneMenu value="#{tramiteBean.tipoTramiteSeleccionado}">
-                                <f:selectItem itemLabel="-- Seleccionar Tipo de Trámite --" itemValue="" />
+                                <f:selectItem itemLabel=" Seleccionar Tipo de Trámite " itemValue="" />
                                 <f:selectItems value="#{tramiteBean.listado}" var="tipo" itemLabel="#{tipo.nom_TT}" itemValue="#{tipo}" />
                             </b:selectOneMenu>
                         </div>
@@ -112,16 +108,13 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <b:commandButton value="Obtener Requisitos" action="#{tramiteBean.addTramite()}" look="primary" style="font-size: 2rem" />
+                            <b:commandButton value="Obtener Requisitos" action ="#{tramiteBean.obtenerRequisitos()}" look="primary" style="font-size: 2rem" />
                         </div>
                     </div>
                 </div>
             </div>
-        </h:form>
-        <!--Formulario para subir archivos -->
-        <h:form enctype="multipart/form-data">
             <p:fileUpload mode="simple" dragDropSupport="false" label="Elegir" value="#{tramiteBean.archivoSubido}"/>
-            <p:commandButton value="Subir Archivo" action="#{tramiteBean.subir()}" ajax="false"/>
+            <p:commandButton value="Agregar Tramite" action="#{tramiteBean.subir()}" ajax="false"/>
         </h:form>
     </h:body>
 </html>

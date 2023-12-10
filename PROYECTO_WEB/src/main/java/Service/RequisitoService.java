@@ -7,6 +7,7 @@ package Service;
 import dao.RequisitoDAOImpl;
 import java.util.List;
 import model.Requisito;
+import model.Tipo_Tramite;
 
 /**
  *
@@ -47,5 +48,12 @@ public class RequisitoService {
         RequisitoDAOImpl requiDao = new RequisitoDAOImpl();
         return requiDao.Reactivar(objeto);
 
+    }
+
+    public List<Requisito> getRequisitosByTiTramite(Tipo_Tramite tipoTramite) {
+
+        RequisitoDAOImpl requiDao = new RequisitoDAOImpl();
+        return requiDao.getRequisitosByTiTramite(tipoTramite);
+        
     }
 }

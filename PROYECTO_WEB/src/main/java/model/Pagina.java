@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DAVID
  */
-public class Pagina {
+public class Pagina implements Serializable{
     
     private String nombrePagina;
 

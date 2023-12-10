@@ -121,6 +121,32 @@ public class RequisitoDAOImpl implements IDAO<Requisito> {
 
     }
 
+    // Método para obtener todos los requisitos de un tipo de trámite específico
+    public List<Requisito> getRequisitosByTiTramite(Tipo_Tramite tipoTramite) {
+        
+        List<Requisito> requisitos = new ArrayList<>();
+
+        String query = "SELECT * FROM requisito WHERE Nom_TT = ?";
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, tipoTramite.getNom_TT());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Requisito requisito = new Requisito();
+                requisito.setNom_Req(rs.getString("Nom_Req"));
+                requisito.setDescripcion(rs.getString("Descripcion"));
+
+                requisitos.add(requisito);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción apropiadamente
+        }
+
+        return requisitos;
+    }
+
     public int Reactivar(Requisito objeto) {
 
         String query = "Update requisito set activo = 1 WHERE Nom_Req = ?";

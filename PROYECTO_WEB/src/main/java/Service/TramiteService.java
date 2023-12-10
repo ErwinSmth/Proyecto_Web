@@ -17,6 +17,8 @@ import model.Tramite;
  */
 public class TramiteService {
 
+
+
     public int add(Tramite objeto) {
 
         TramiteDaoImpl tramiteDao = new TramiteDaoImpl();
@@ -73,10 +75,10 @@ public class TramiteService {
 
     }
 
-    public int addRequisito(int idtramite, String nombre_TT) {
+    public int addRequisito(int idtramite, Tipo_Tramite tipoTra) {
 
         TramiteDaoImpl tramiteDao = new TramiteDaoImpl();
-        return tramiteDao.addRequisito_Tramite(idtramite, nombre_TT);
+        return tramiteDao.addRequisito_Tramite(idtramite, tipoTra);
 
     }
 
