@@ -41,18 +41,17 @@ public class TramiteDaoImpl implements IDAO<Tramite> {
 
             java.sql.Date fechainicio = java.sql.Date.valueOf(objeto.getFecha_inicio());
             ps.setDate(3, fechainicio); //aqui se establecera la fecha automaticamente en la que se registro dicho tramite
-            
 
             int exito = ps.executeUpdate();
 
             if (exito > 0) {
-                conn.commit();
-                
+
                 ResultSet key = ps.getGeneratedKeys();
                 if (key.next()) {
                     idTramite = key.getInt(1); //obtenemos el id generado
                 }
-                return 1;
+                conn.commit();
+                return idTramite;
             } else {
                 conn.rollback();
             }
@@ -167,20 +166,27 @@ public class TramiteDaoImpl implements IDAO<Tramite> {
     }
 
     //Metodo a usarse como endpoint en la API
-    public List<Tramite> getListadoByID(int id) {
+    public List<Tramite> getListadoByLogin(String login) {
 
-        String query = "Select * from tramite where id_persona = ?";
+        String query = "SELECT t.id_tramite, t.Nom_TT, t.fecha_inicio, t.fecha_finalizo, t.estado_final, t.cant_documentos, t.fecha_limite\n"
+                + "FROM Persona p\n"
+                + "JOIN Tramite t ON p.id_persona = t.id_persona\n"
+                + "JOIN Usuario u ON p.login = u.login\n"
+                + "WHERE u.login = ?;";
         List<Tramite> lista = new ArrayList<>();
 
         try ( PreparedStatement ps = conn.prepareStatement(query)) {
 
-            ps.setInt(1, id);
+            ps.setString(1, login);
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
                 Tramite tramite = new Tramite();
+                
+                tramite.setId_tramite(rs.getInt("id_tramite"));
+                
                 tramite.setTipoTramite(new Tipo_Tramite(rs.getString("Nom_TT")));
 
                 //Fecha de inicio
@@ -190,7 +196,11 @@ public class TramiteDaoImpl implements IDAO<Tramite> {
 
                 //Fecha de fin
                 java.sql.Date fechafinSQL = rs.getDate("fecha_finalizo");
-                LocalDate fechafin = fechafinSQL.toLocalDate();
+                LocalDate fechafin = null;
+                if (fechafinSQL != null) {
+                    fechafinSQL.toLocalDate();
+                }
+
                 tramite.setFecha_finalizo(fechafin);
 
                 //Estado

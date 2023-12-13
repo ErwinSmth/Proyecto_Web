@@ -47,10 +47,10 @@ public class TramiteService {
 
     }
 
-    public List<Tramite> getListadoByID(int id) {
+    public List<Tramite> getListadoByLogin(String Login) {
 
         TramiteDaoImpl tramiteDao = new TramiteDaoImpl();
-        return tramiteDao.getListadoByID(id);
+        return tramiteDao.getListadoByLogin(Login);
 
     }
 

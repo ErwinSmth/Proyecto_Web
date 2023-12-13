@@ -9,6 +9,13 @@
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+
+            .navbar-nav .nav-item {
+                margin-right: 4rem;
+            }
+
+        </style>
     </h:head>
     <h:body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -26,6 +33,14 @@
                                 </a>
                             </li>
                         </ui:repeat>
+                    </ul>
+                    <!-- Botón "Cerrar Sesión" -->
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <h:form>
+                                <h:commandButton value="Cerrar Sesión" class="btn btn-danger" action="#{login.cerrarSesion}" style="font-size: 1rem"></h:commandButton>
+                            </h:form>
+                        </li>
                     </ul>
                 </div>
             </div>

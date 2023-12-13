@@ -9,7 +9,7 @@
         <title>Listado de opciones</title>
         <style>
             .navbar-nav .nav-link {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
             .navbar-nav .nav-item {
@@ -18,7 +18,6 @@
         </style>
     </h:head>
     <h:body>
-
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"></a>
@@ -34,6 +33,14 @@
                                 </a>
                             </li>
                         </ui:repeat>
+                    </ul>
+                    <!-- Botón "Cerrar Sesión" -->
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <h:form>
+                                <h:commandButton value="Cerrar Sesión" class="btn btn-danger" action="#{login.cerrarSesion}" style="font-size: 1rem"></h:commandButton>
+                            </h:form>
+                        </li>
                     </ul>
                 </div>
             </div>

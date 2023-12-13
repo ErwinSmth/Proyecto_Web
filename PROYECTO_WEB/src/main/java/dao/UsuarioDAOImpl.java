@@ -5,12 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Persona;
 import model.Rol;
 import model.Tipo_Documento;
+import model.Tipo_Tramite;
 import model.Usuario;
 import util.DataSource;
 
@@ -103,6 +103,71 @@ public class UsuarioDAOImpl implements IDAO<Usuario> {
             ex.printStackTrace();
         }
         return 2;
+    }
+
+    public void addInteresado(int id_persona) {
+
+        String query = "Insert into interesado (id_persona) values (?) ";
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, id_persona);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void addAdministrador(int id_persona) {
+
+        String query = "Insert into administrador (id_persona) values (?) ";
+        try ( PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, id_persona);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    public void addEspecialista(int id_persona, Tipo_Tramite tipoTramite){
+        
+        String query = "Insert into especialista (id_persona, Nom_TT) values (?,?)";
+        try (PreparedStatement ps = conn.prepareStatement(query)){
+            
+            ps.setInt(1, id_persona);
+            ps.setString(2, tipoTramite.getNom_TT());
+            
+            ps.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();    
+        }
+        
+    }
+    
+    public int getLastID(){
+        
+        int id = 0;
+        String query = "Select Max(id_persona) as ultimoID from persona";
+        
+        try (PreparedStatement ps = conn.prepareStatement(query)){
+            
+            ResultSet rs  = ps.executeQuery();
+            
+            if (rs.next()) {
+                id = rs.getInt("ultimoID");
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
     public List<Tipo_Documento> getTipoDocu() {

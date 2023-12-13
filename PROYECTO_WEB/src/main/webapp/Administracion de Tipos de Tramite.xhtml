@@ -13,7 +13,7 @@
                 font-size: 14px;
             }
             .navbar-nav .nav-link {
-                font-size: 1.3rem;
+                font-size: 1rem;
             }
 
             .navbar-nav .nav-item {
@@ -38,6 +38,14 @@
                                 </a>
                             </li>
                         </ui:repeat>
+                    </ul>
+                    <!-- Botón "Cerrar Sesión" -->
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <h:form>
+                                <h:commandButton value="Cerrar Sesión" class="btn btn-danger" action="#{login.cerrarSesion}" style="font-size: 1rem"></h:commandButton>
+                            </h:form>
+                        </li>
                     </ul>
                 </div>
             </div>

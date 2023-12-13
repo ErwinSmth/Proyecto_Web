@@ -13,6 +13,7 @@ import model.Persona;
 import model.Rol;
 import model.Tipo_Documento;
 import model.Usuario;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 
 @ManagedBean(name = "userBean")
 @RequestScoped
@@ -125,6 +126,7 @@ public class UsuarioBean {
 
             //Se registro correctamente
             if (usService.Registro(newPer) == 1) {
+                usService.addInteresado(usService.getLastID());
                 FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
                 return 1;
             } else { //Ocurrio un error
@@ -136,7 +138,7 @@ public class UsuarioBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Error", "Numero de Documento no valido"));
             return 0; //Documento no valido
-        }
+        } 
 
     }
 

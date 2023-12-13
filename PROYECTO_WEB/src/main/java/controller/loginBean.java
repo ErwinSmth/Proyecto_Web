@@ -109,5 +109,12 @@ public class loginBean {
         FacesContext.getCurrentInstance().getExternalContext().redirect("Registro de Usuario.xhtml");
 
     }
+    
+    public void cerrarSesion() throws IOException{
+        
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("Login.xhtml");
+        
+    }
 
 }

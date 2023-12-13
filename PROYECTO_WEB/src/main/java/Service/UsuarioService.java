@@ -6,6 +6,7 @@ import dao.UsuarioDAOImpl;
 import model.Pagina;
 import model.Persona;
 import model.Tipo_Documento;
+import model.Tipo_Tramite;
 import model.Usuario;
 
 public class UsuarioService {
@@ -79,6 +80,30 @@ public class UsuarioService {
 
         UsuarioDAOImpl usDao = new UsuarioDAOImpl();
         return usDao.reactivar(objeto);
+
+    }
+
+    public void addInteresado(int id_persona) {
+        UsuarioDAOImpl usDao = new UsuarioDAOImpl();
+        usDao.addInteresado(id_persona);
+    }
+
+    public void addAdministrador(int id_persona) {
+        UsuarioDAOImpl usDao = new UsuarioDAOImpl();
+        usDao.addAdministrador(id_persona);
+    }
+
+    public void addEspecialista(int id_persona, Tipo_Tramite tipoTramite) {
+
+        UsuarioDAOImpl usDao = new UsuarioDAOImpl();
+        usDao.addEspecialista(id_persona, tipoTramite);
+
+    }
+
+    public int getLastID() {
+
+        UsuarioDAOImpl usDao = new UsuarioDAOImpl();
+        return usDao.getLastID();
 
     }
 

@@ -13,7 +13,6 @@ dao\RequisitoDAOImpl.class
 Service\AnexoService.class
 controller\UsuarioBean.class
 dao\UsuarioDAOImpl.class
-Service\ArchivoService.class
 Service\ArchivoHelper.class
 model\Pagina.class
 dao\TramiteDaoImpl.class

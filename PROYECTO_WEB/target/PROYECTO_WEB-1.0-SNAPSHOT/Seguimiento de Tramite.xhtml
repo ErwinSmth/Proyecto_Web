@@ -4,12 +4,73 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Lista de Trámites</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        <style>
+            .navbar-nav .nav-item {
+                margin-right: 7rem;
+            }
+        </style>
+    </h:head>
+    <h:body  style="font-size: 20px;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-5">
+                        <ui:repeat value="#{sessionScope.paginasPorRol}" var="pagina">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#{pagina.nombrePagina}" style="color: white">
+                                    #{pagina.nombrePagina.substring(0, pagina.nombrePagina.lastIndexOf('.'))}
+                                </a>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                    <!-- Botón "Cerrar Sesión" -->
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <h:form>
+                                <h:commandButton value="Cerrar Sesión" class="btn btn-danger" action="#{login.cerrarSesion}" style="font-size: 2rem"></h:commandButton>
+                            </h:form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container mt-6">
+            <h1>Lista de Trámites</h1>
+            <b:dataTable value="#{seg_TramiteBEAN.listaTramite}" var="tramite" striped="true">
+
+                <b:dataTableColumn label="Tipo de Trámite">
+                    #{tramite.id_tramite}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Tipo de Trámite">
+                    #{tramite.tipoTramite.nom_TT}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Fecha de Inicio">
+                    #{tramite.fecha_inicio}
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Fecha de Finalización">
+                    <h:outputText value="#{tramite.fecha_finalizo != null ? tramite.fecha_finalizo : 'En proceso'}" />
+                </b:dataTableColumn>
+
+                <b:dataTableColumn label="Estado">
+                    <h:outputText value="#{tramite.estado == 1 ? 'En proceso de revisión' : 'Aprobado'}"/>
+                </b:dataTableColumn>
+
+            </b:dataTable>
+        </div>
+    </h:body>
 </html>

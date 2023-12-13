@@ -140,6 +140,7 @@ public class TramiteBean {
                 this.tramite.setFecha_inicio(LocalDate.now());
 
                 int resultadoTRA = traServ.add(tramite);
+                System.out.println("El ultimo ID es: " +resultadoTRA);
 
                 if (resultadoTRA != -1) {
                     ArchivoHelper upload = new ArchivoHelper();
